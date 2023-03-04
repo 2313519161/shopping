@@ -1,14 +1,19 @@
 package demo.shopping.po;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
+
+@Validated
 public class Buser {
 	private Integer id;
-	@Email
+	@Email(message = "邮箱格式错误")
 	private String bemail;
-	@NotBlank
+
+	@Pattern(regexp = "^(?=.*[a-zA-Z0-9].*)(?=.*[a-zA-Z.!@#$%^&*].*)(?=.*[0-9.!@#$%^&*].*).{6,32}$", message = "密码至少包含数字，字母和符号的两种")
 	private String bpwd;
+
 	public Integer getId() {
 		return id;
 	}

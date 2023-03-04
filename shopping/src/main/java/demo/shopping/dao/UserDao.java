@@ -10,6 +10,6 @@ import demo.shopping.po.Buser;
 @Repository("userDao")
 @Mapper
 public interface UserDao {
-	public int register(Buser buser);
+	public int register(String bemail ,String bpwd);
 	public List<Buser> login(Buser buser);
 }
