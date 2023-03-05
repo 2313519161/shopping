@@ -32,36 +32,43 @@ public class UserController {
 				return "before/register";
 			}
 
-			String CunBPwd = userService.Bpwd(buser.getBpwd());
 			//密码加密，通过userService.Bpwd（）函数加密，加密方法用的md5，未加盐
+			String CunBPwd = userService.Bpwd(buser.getBpwd());
+
 
 			int n=userService.register(buser.getBemail(),CunBPwd);
 			if(n > 0) {
 				return "before/login";
 			}else {
-				model.addAttribute("msg", "码");
+				model.addAttribute("msg", "注册失败");
 				return "before/register";
 			}
 		}
 
 	}
-
-
-
-
+	
 	@RequestMapping("/login")
-	public String login(@ModelAttribute Buser buser,Model model, HttpSession session, String code) {
-		return userService.login(buser, model, session, code);
+	public String login(@ModelAttribute Buser buser,Model model, HttpSession session, String code) throws Exception {
+		//验证码对比
+		if(!code.equalsIgnoreCase(session.getAttribute("code").toString())) {
+			model.addAttribute("msg", "验证码错误");
+			return "before/login";
+		}
+		//Buser.Bpwd加密然后赋值
+		buser.setBpwd(userService.Bpwd(buser.getBpwd()));
 
+        Buser buser1=null;
+       		buser1=userService.login(buser,model,session);
 
+		if(buser1 != null) {
+			session.setAttribute("bruser", buser1);
+			return "forward:/before";
+			}else {
+			model.addAttribute("msg", "用户不存在");
+			return "before/login";
 
-
-
+		}
 	}
-
-
-
-
 
 	@RequestMapping("/exit")
 	public String exit(HttpSession session) {

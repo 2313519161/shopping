@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService{
 		byte[] bytes = md5.digest(pwd.getBytes());
 		//md5加密
 		String result = "";
-		for(byte b : bytes)
+			for(byte b : bytes)
 		{
 			String temp = Integer.toHexString(b & 0xff);
 
@@ -53,23 +53,16 @@ public class UserServiceImpl implements UserService{
 
 
 	@Override
-	public String login(Buser buser, Model model, HttpSession session, String code) {
-		if(!code.equalsIgnoreCase(session.getAttribute("code").toString())) {
-			model.addAttribute("msg", "��֤�����");
-			return "before/login";
-		}
+	public Buser login(Buser buser, Model model, HttpSession session) {
+
 		Buser ruser = null;
 		List<Buser> list = userDao.login(buser);
 		if(list.size() > 0) {
 			ruser = list.get(0);
 		}
-		if(ruser != null) {
-			session.setAttribute("bruser", ruser);
-			return "forward:/before";
-		}else {
-			model.addAttribute("msg", "�û������������");
-			return "before/login";
-		}
+
+		return ruser;
+
 	}
 
 }

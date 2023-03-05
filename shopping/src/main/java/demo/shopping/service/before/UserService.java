@@ -11,5 +11,5 @@ import java.security.NoSuchAlgorithmException;
 public interface UserService {
 	public int register(String BEmail,String ZhenBPwd );
 	public String Bpwd(String TruePwd) throws NoSuchAlgorithmException, Exception;
-	public String login(Buser buser,Model model, HttpSession session, String code);
+	public Buser login(Buser buser,Model model, HttpSession session);
 }
