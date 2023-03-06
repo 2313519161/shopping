@@ -23,14 +23,17 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserDao userDao;
 	@Override
-	public int register(String BEmail,String  CunBPwd) {
+	public int register(String BEmail,String  CunBPwd) throws Exception {
 
-		int n = userDao.register(BEmail,CunBPwd);
+	String	pwd=Bpwd(CunBPwd);
+
+		int n = userDao.register(BEmail,pwd);
 		return n;
 	}
 
-	@Override
-	public String Bpwd(String pwd) throws Exception {
+
+	public static String Bpwd(String pwd) throws Exception {
+
 		MessageDigest md5 = MessageDigest.getInstance("MD5");
 		byte[] bytes = md5.digest(pwd.getBytes());
 		//md5加密
@@ -53,9 +56,13 @@ public class UserServiceImpl implements UserService{
 
 
 	@Override
-	public Buser login(Buser buser, Model model, HttpSession session) {
+	public Buser login(Buser buser, Model model, HttpSession session) throws Exception {
 
 		Buser ruser = null;
+
+		//Buser.Bpwd加密然后赋值
+		buser.setBpwd(Bpwd(buser.getBpwd()));
+
 		List<Buser> list = userDao.login(buser);
 		if(list.size() > 0) {
 			ruser = list.get(0);

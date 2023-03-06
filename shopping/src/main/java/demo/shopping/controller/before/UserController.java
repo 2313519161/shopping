@@ -33,10 +33,9 @@ public class UserController {
 			}
 
 			//密码加密，通过userService.Bpwd（）函数加密，加密方法用的md5，未加盐
-			String CunBPwd = userService.Bpwd(buser.getBpwd());
+            //在service中进行加密操作
 
-
-			int n=userService.register(buser.getBemail(),CunBPwd);
+			int n=userService.register(buser.getBemail(),buser.getBpwd());
 			if(n > 0) {
 				return "before/login";
 			}else {
@@ -54,8 +53,6 @@ public class UserController {
 			model.addAttribute("msg", "验证码错误");
 			return "before/login";
 		}
-		//Buser.Bpwd加密然后赋值
-		buser.setBpwd(userService.Bpwd(buser.getBpwd()));
 
         Buser buser1=null;
        		buser1=userService.login(buser,model,session);
@@ -69,7 +66,6 @@ public class UserController {
 
 		}
 	}
-
 	@RequestMapping("/exit")
 	public String exit(HttpSession session) {
 		session.invalidate();
