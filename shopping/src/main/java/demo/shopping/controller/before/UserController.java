@@ -1,8 +1,8 @@
 package demo.shopping.controller.before;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
+import demo.shopping.util.MailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +20,7 @@ import demo.shopping.service.before.UserService;
 public class UserController {
 	@Autowired
 	private UserService userService;
+
 	@RequestMapping("/register")
 	public String register(@RequestBody @ModelAttribute @Validated Buser buser, BindingResult bindingResult, Model model, HttpSession session, String code) throws Exception {
 		if (bindingResult.hasErrors()){
@@ -32,10 +33,12 @@ public class UserController {
 				return "before/register";
 			}
 
-			//密码加密，通过userService.Bpwd（）函数加密，加密方法用的md5，未加盐
-            //在service中进行加密操作
-
 			int n=userService.register(buser.getBemail(),buser.getBpwd());
+
+			MailUtil mailUtil=new MailUtil(buser.getBemail(),"123");
+			mailUtil.run();
+
+
 			if(n > 0) {
 				return "before/login";
 			}else {
@@ -43,7 +46,6 @@ public class UserController {
 				return "before/register";
 			}
 		}
-
 	}
 	
 	@RequestMapping("/login")
