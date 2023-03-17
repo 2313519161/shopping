@@ -18,7 +18,7 @@ public class MyExceptionHandler implements HandlerExceptionResolver {
     	if(arg3 instanceof AdminLoginNoException){
         	arg0.setAttribute("auser", new Auser());
         	arg0.setAttribute("msg", "û�е�¼�����¼��");
-        	return new ModelAndView("/admin/login", model);
+        	return new ModelAndView("login1", model);
         } else if(arg3 instanceof UserLoginNoException){
         	arg0.setAttribute("buser", new Buser());
         	arg0.setAttribute("msg", "û�е�¼�����¼��");
