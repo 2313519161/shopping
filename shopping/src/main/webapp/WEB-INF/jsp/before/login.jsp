@@ -37,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
   </head>
   <body>
-  	<center>
+  	<div style="text-align: center;">
   	<form:form action="user/login" method="post" modelAttribute="buser"  name = "loginform">
 	<table>
 		<tr>
@@ -72,6 +72,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 	</form:form>
 	${msg }
-	</center>
+	</div>
   </body>
 </html>

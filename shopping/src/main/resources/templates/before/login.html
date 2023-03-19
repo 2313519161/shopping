@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+    <link href="../css/before/daohang.css" rel="stylesheet" type="text/css" />
+    <link href="../css/before/common.css" rel="stylesheet" type="text/css" />
+    <link href="../css/before/style.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        table{
+          margin: 0 auto;
+        }
+        .textSize{
+            width: 200px;
+            height: 20px;
+        }
+    </style>
+    <script type="text/javascript">
+        //确定按钮
+        function gogo(){
+            document.loginform.submit();
+        }
+        //取消按钮
+        function cancel(){
+            document.loginform.action="";
+        }
+        //刷新验证码
+        function refreshCode(){
+            document.getElementById("code").src = "../validateCode?" + Math.random();
+
+        }
+
+    </script>
+    <title th:text="#{login.page.title}"></title>
+</head>
+<body>
+<div style="text-align: center">
+
+<!--使用modelAttribute与user直接绑定-->
+    <form th:action="@{/user/login}" method="post" modelAttribute="buser"  name = "loginform">
+        <table>
+            <tr>
+                <td colspan="2"><img src="../images/admin/login.gif"></td>
+            </tr>
+            <tr>
+                <td th:text="#{login.page.youxiang}"></td>
+                <td><input type="text" name="bemail"   class="textSize"/></td>
+            </tr>
+            <tr>
+                <td th:text="#{login.page.pwd}"></td>
+                <td><input type="password" name="bpwd" class="textSize"/></td>
+            </tr>
+            <tr>
+                <td th:text="#{login.page.yan}"></td>
+                <td><input type="text" name="code" class="textSize"/></td>
+            </tr>
+            <tr>
+                <td>
+                    <img id="code" src="../validateCode"/>
+                </td>
+                <td class="ared">
+                    <a href="javascript:refreshCode();"><font color="blue" th:text="#{login.page.huanyan}"></font></a>
+
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="image" src="../images/admin/ok.gif" onclick="gogo()">
+                    <input type="image" src="../images/admin/cancel.gif" onclick="cancel()">
+                </td>
+            </tr>
+            <tr id="msg">
+                <td th:text="${msg}" style="text-align: center" ></td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+</body>
+
+</html>

@@ -53,10 +53,17 @@ public class UserController {
 			}
 		}
 	}
+
+	@RequestMapping("/showlogin")
+	public String Showlogin(){
+
+		return "before/login";
+	}
 	
 	@RequestMapping("/login")
 	public String login(@ModelAttribute Buser buser,Model model, HttpSession session, String code) throws Exception {
 		//验证码对比
+
 		if(!code.equalsIgnoreCase(session.getAttribute("code").toString())) {
 			model.addAttribute("msg", "验证码错误");
 			return "before/login";
@@ -64,6 +71,7 @@ public class UserController {
 
         Buser buser1=null;
        		buser1=userService.login(buser,model,session);
+
 
 		if(buser1 != null) {
 			session.setAttribute("bruser", buser1);
@@ -73,6 +81,7 @@ public class UserController {
 			return "before/login";
 
 		}
+
 	}
 	@RequestMapping("/exit")
 	public String exit(HttpSession session) {
