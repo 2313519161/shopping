@@ -20,7 +20,7 @@
 	//表单验证
 	function checkForm(){
 		var bpwd = document.registerForm.bpwd.value;
-		var rebpwd = document.registerForm.rebpwd.value;
+		var rebpwd = document.registerForm.rebjavax.mail0/'pwd.value;
 		if(bpwd != rebpwd){
 			alert("两次密码不一致！");
 			return false;
@@ -46,14 +46,14 @@
 		<div class="box4">
 			<div class="case_ll clearfix">
 				<div class="regist">
-					<form:form action="user/register" method="post" modelAttribute="buser"  name="registerForm">
+					<form action="user/register" method="post" modelAttribute="buser"  name="registerForm">
 						<table width="100%" border="0" cellspacing="0" cellpadding="0"
 							class="ttbb2">
 							<tr>
 								<td width="16%" align="right"><span class="cl_f30">*</span>
 									E-mail：</td>
 								<td width="59%"><input type="text" name="bemail"
-									id="textfield" class="my_txt_350" value="${buser.bemail}" /></td>
+									id="textfield" class="my_txt_350" th:value="${buser.bemail}" /></td>
 								<td width="25%">${msg }</td>
 							</tr>
 							<tr>
@@ -102,7 +102,7 @@
 								<td>&nbsp;</td>
 							</tr>
 						</table>
-					</form:form>
+					</form>
 					<div class="blank20"></div>
 				</div>
 			</div>

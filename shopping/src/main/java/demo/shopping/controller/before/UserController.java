@@ -21,6 +21,12 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	@RequestMapping("/showregister")
+	public String Showregister(Model model,Buser buser){
+		model.addAttribute("buser",buser);
+		return "before/register";
+	}
+
 	@RequestMapping("/register")
 	public String register(@RequestBody @ModelAttribute @Validated Buser buser, BindingResult bindingResult, Model model, HttpSession session, String code) throws Exception {
 		if (bindingResult.hasErrors()){
