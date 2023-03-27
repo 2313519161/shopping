@@ -16,14 +16,17 @@ public class AdminServiceImpl implements AdminService{
 	@Autowired
 	private AdminTypeDao adminTypeDao;
 	@Override
-	public String login(Auser auser, Model model, HttpSession session) {
+	public Auser login(Auser auser, Model model, HttpSession session) {
+
+
 		if(adminDao.login(auser) != null && adminDao.login(auser).size() > 0) {
+
 			session.setAttribute("auser", auser);
 			session.setAttribute("goodsType", adminTypeDao.selectGoodsType());
-			return "admin/main";
+			return adminDao.login(auser).get(0);
 		}
-		model.addAttribute("msg", "�û������������");
-		return "admin/login";
+		model.addAttribute("msg", "msg");
+		return null;
 	}
 
 }

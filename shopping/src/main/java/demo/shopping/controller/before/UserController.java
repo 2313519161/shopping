@@ -44,7 +44,6 @@ public class UserController {
 			MailUtil mailUtil=new MailUtil(buser.getBemail(),"123");
 			mailUtil.run();
 
-
 			if(n > 0) {
 				return "before/login";
 			}else {

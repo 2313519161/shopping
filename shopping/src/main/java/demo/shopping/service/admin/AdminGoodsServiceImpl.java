@@ -60,37 +60,31 @@ public class AdminGoodsServiceImpl implements AdminGoodsService{
 	}
 
 	@Override
-	public String selectGoods(Model model, Integer pageCur, String act) {
+	public int CountPage() {
+		//统计有多少页数据
 		List<Goods> allGoods = adminGoodsDao.selectGoods();
-		int temp = allGoods.size();
-		model.addAttribute("totalCount", temp);
-		int totalPage = 0;
-		if (temp == 0) {
-			totalPage = 0;
-		} else {
-			totalPage = (int) Math.ceil((double) temp / 10);
-		}
-		if (pageCur == null) {
-			pageCur = 1;
-		}
-		if ((pageCur - 1) * 10 > temp) {
-			pageCur = pageCur - 1;
-		}
 
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("startIndex", (pageCur - 1) * 10);
-		map.put("perPageSize", 10);
-		allGoods = adminGoodsDao.selectAllGoodsByPage(map);
-		model.addAttribute("allGoods", allGoods);
-		model.addAttribute("totalPage", totalPage);
-		model.addAttribute("pageCur", pageCur);
-		if("deleteSelect".equals(act)){
-			return "admin/deleteSelectGoods";
-		}else if("updateSelect".equals(act)){
-			return "admin/updateSelectGoods";
-		}else{
-			return "admin/selectGoods";
-		}
+		return (int)Math.ceil(allGoods.size()/5.0);
+	}
+
+	@Override
+	public int CountInfo() {
+		//统计有多少条商品数据
+		List<Goods> allGoods = adminGoodsDao.selectGoods();
+
+		return allGoods.size();
+	}
+
+	@Override
+	public List<Goods> selectGoods( Integer pageCur, String act) {
+		//一次就查询五条数据
+
+	if (pageCur==null)pageCur=0;
+		List<Goods> allGoods = adminGoodsDao.selectAllGoodsByPage((pageCur-1)*5,5);
+
+
+		return allGoods;
+
 	}
 
 	@Override

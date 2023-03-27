@@ -11,7 +11,7 @@ import demo.shopping.po.Goods;
 @Mapper
 public interface AdminGoodsDao {
 	public List<Goods> selectGoods();
-	public List<Goods> selectAllGoodsByPage(Map<String, Object> map);
+	public List<Goods> selectAllGoodsByPage(int startIndex, int perPageSize);
 	public int addGoods(Goods goods);
 	public Goods selectGoodsById(Integer id);
 	public int deleteGoods(List<Integer> ids);

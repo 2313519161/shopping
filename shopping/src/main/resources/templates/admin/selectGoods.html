@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org ">
+<head>
+    <title>selectGoods.html</title>
+    <link  type="text/css" rel="stylesheet" th:href="@{/css/admin/common.css}">
+    <style type="text/css">
+        table{
+            text-align: center;
+            border-collapse: collapse;
+        }
+        .bgcolor{
+            background-color: #F08080;
+        }
+    </style>
+    <script type="text/javascript">
+        function changeColor(obj){
+            obj.className = "bgcolor";
+        }
+        function changeColor1(obj){
+            obj.className = "";
+        }
+    </script>
+</head>
+<body>
+<div th:if ="${allGoods.size()==0}" th:text="#{selectGoods.page.title}">
+
+</div>
+<div th:if ="${allGoods.size()!=0}">
+    <table border="1" bordercolor="PaleGreen">
+        <tr>
+            <th width="100px" th:text="#{selectGoods.page.ID}"></th>
+            <th width="200px" th:text="#{selectGoods.page.name}"></th>
+            <th width="200px" th:text="#{selectGoods.page.price}"></th>
+            <th width="100px" th:text="#{selectGoods.page.inventory}"></th>
+            <th width="200px" th:text="#{selectGoods.page.detail}"></th>
+        </tr>
+
+            <tr onmousemove="changeColor(this)" onmouseout="changeColor1(this)" th:each="goods:${allGoods}">
+                <td th:text="${goods.id }"></td>
+                <td th:text="${goods.gname}"></td>
+                <td th:text="${goods.grprice}"></td>
+                <td th:text="${goods.gstore}"></td>
+                <td><a target="_blank"
+                th:href="@{/adminGoods/selectAGoods(id=${goods.id})}"
+                       th:text="#{selectGoods.page.xiangqing}"
+                ></a></td>
+            </tr>
+
+        <tr>
+            <td colspan="5" align="right" >
+             <span th:text="#{selectGoods.page.info(${totalCount},${totalPage},${pageCur})}"></span>
+
+                <a th:href="@{/adminGoods/selectGoods(pageCur=${pageCur-1})}"
+                   th:if="${pageCur!=1}"
+                   th:text="#{selectGoods.page.BeforePage}"
+                ></a>
+
+                </a>
+
+                <a th:href="@{/adminGoods/selectGoods(pageCur=${pageCur+1})}"
+                   th:if ="${pageCur != totalPage && totalPage != 0}"
+                   th:text="#{selectGoods.page.NextPage}">
+                    </a>
+
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
