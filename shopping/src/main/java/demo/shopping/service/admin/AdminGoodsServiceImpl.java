@@ -8,7 +8,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import demo.shopping.AppSettings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -21,6 +23,8 @@ import demo.shopping.util.MyUtil;
 public class AdminGoodsServiceImpl implements AdminGoodsService{
 	@Autowired
 	private AdminGoodsDao adminGoodsDao;
+	@Autowired
+	private AppSettings appSettings;
 
 	@Override
 	public String addOrUpdateGoods(Goods goods, HttpServletRequest request, String updateAct) {
@@ -28,7 +32,7 @@ public class AdminGoodsServiceImpl implements AdminGoodsService{
 		String fileName = goods.getLogoImage().getOriginalFilename(); 
 
 		if(fileName.length() > 0){
-			String realpath = request.getServletContext().getRealPath("logos");
+			String realpath = appSettings.getLogoPath();
 			String fileType = fileName.substring(fileName.lastIndexOf('.'));
 			newFileName = MyUtil.getStringID() + fileType;
 			goods.setGpicture(newFileName);

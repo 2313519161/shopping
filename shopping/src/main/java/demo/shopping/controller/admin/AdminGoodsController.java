@@ -13,7 +13,7 @@ import demo.shopping.service.admin.AdminGoodsService;
 import java.util.List;
 
 @Controller
-@RequestMapping("/adminGoods")
+@RequestMapping("/admin/adminGoods")
 public class AdminGoodsController extends BaseController{
 	@Autowired
 	private AdminGoodsService adminGoodsService;
