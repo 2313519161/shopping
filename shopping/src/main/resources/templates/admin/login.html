@@ -3,7 +3,7 @@
 <head>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>后台登录</title>
+    <title th:text="#{admin.login.title}"></title>
     <link href="../css/before/daohang.css" rel="stylesheet" type="text/css" />
     <link href="../css/before/common.css" rel="stylesheet" type="text/css" />
     <link href="../css/before/style.css" rel="stylesheet" type="text/css" />
@@ -45,13 +45,13 @@
             <td colspan="2"><img src="../images/admin/login.gif"></td>
         </tr>
         <tr>
-            <td>姓名：</td>
+            <td th:text="#{admin.login.name}"></td>
             <td>
                 <input  name="aname" id="aname"/>
             </td>
         </tr>
         <tr>
-            <td>密码：</td>
+            <td th:text="#{admin.login.pwd}"></td>
             <td>
                 <input type="password" name="apwd" id="apwd"  maxlength="20"/>
             </td>

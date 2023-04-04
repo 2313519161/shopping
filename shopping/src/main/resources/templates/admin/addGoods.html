@@ -1,59 +1,56 @@
 
 <html xmlns:th="http://www.thymeleaf.org ">
 <head>
-    <base href="<%=basePath%>">
-    <title>addGoods.jsp</title>
+
+    <title th:text="#{admin.addGoods.page.title}"></title>
     <link href="../css/admin/common.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-<form action="../adminGoods/addGoods" method="post" modelAttribute="goods" enctype="multipart/form-data">
+<form th:action="@{/admin/adminGoods/addGoods}" method="post" modelAttribute="goods" enctype="multipart/form-data">
     <table border=1 style="border-collapse: collapse">
         <caption>
-            <font size=4 face=华文新魏>添加商品</font>
+            <font size=4 face=华文新魏 th:text="#{admin.addGoods.page.title}"></font>
         </caption>
         <tr>
-            <td>名称<font color="red">*</font></td>
+            <td th:text="#{admin.addGoods.page.name}"><font color="red">*</font></td>
             <td>
-                <input path="gname"/>
+                <input name="gname"/>
             </td>
         </tr>
         <tr>
-            <td>原价<font color="red">*</font></td>
+            <td th:text="#{admin.addGoods.page.price}"><font color="red">*</font></td>
             <td>
-                <input path="goprice"/>
+                <input name="goprice"/>
             </td>
         </tr>
         <tr>
-            <td>折扣价</td>
+            <td th:text="#{admin.addGoods.page.discountprice}"></td>
             <td>
-                <input path="grprice"/>
+                <input name="grprice"/>
             </td>
         </tr>
         <tr>
-            <td>库存</td>
+            <td th:text="#{admin.addGoods.page.stock}"></td>
             <td>
-                <input path="gstore"/>
+                <input name="gstore"/>
             </td>
         </tr>
         <tr>
-            <td>图片</td>
+            <td th:text="#{admin.addGoods.page.picture}"></td>
             <td>
                 <input type="file" name="logoImage"/>
             </td>
         </tr>
 
 
-
-
         <tr>
-            <td>类型</td>
+            <td th:text="#{admin.addGoods.page.type}"></td>
             <td>
-                <select thpath="goodstype_id">
-                    <options items="${goodsType}" itemLabel="typename" itemValue="id"/>
+                <select >
+                    <option th:each="goodstype:${GoodsType}" th:text="${goodstype.typename}" ></option>
                 </select>
             </td>
         </tr>
-<!--        这个地方有问题-->
 
 
         <tr>

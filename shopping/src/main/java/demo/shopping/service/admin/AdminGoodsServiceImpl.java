@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import demo.shopping.AppSettings;
+import demo.shopping.po.GoodsType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -28,26 +29,25 @@ public class AdminGoodsServiceImpl implements AdminGoodsService{
 
 	@Override
 	public String addOrUpdateGoods(Goods goods, HttpServletRequest request, String updateAct) {
-		String newFileName = "";
-		String fileName = goods.getLogoImage().getOriginalFilename(); 
+		String newFileName ="";
+		String fileName = goods.getLogoImage().getOriginalFilename();
 
 		if(fileName.length() > 0){
 			String realpath = appSettings.getLogoPath();
+
 			String fileType = fileName.substring(fileName.lastIndexOf('.'));
 			newFileName = MyUtil.getStringID() + fileType;
 			goods.setGpicture(newFileName);
 			File targetFile = new File(realpath, newFileName); 
-			if(!targetFile.exists()){  
-	            targetFile.mkdirs();  
-	        } 
-
-	        try {   
+			if(!targetFile.exists()){
+	            targetFile.mkdirs();
+	        }
+	        try {
 	        	goods.getLogoImage().transferTo(targetFile);
 	        } catch (Exception e) {  
 	            e.printStackTrace();  
-	        }  
+	        }
 		}
-
 		if("update".equals(updateAct)){
 	       if(adminGoodsDao.updateGoodsById(goods) > 0){
 	        	return "forward:/adminGoods/selectGoods?act=updateSelect";
@@ -77,6 +77,14 @@ public class AdminGoodsServiceImpl implements AdminGoodsService{
 		List<Goods> allGoods = adminGoodsDao.selectGoods();
 
 		return allGoods.size();
+	}
+
+	@Override
+	public List<GoodsType> getGoodsType() {
+		//查找所有的商品类型
+		List<GoodsType> list=adminGoodsDao.getGoodsType();
+
+		return list;
 	}
 
 	@Override

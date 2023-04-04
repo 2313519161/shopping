@@ -3,6 +3,7 @@ package demo.shopping.dao;
 import java.util.List;
 import java.util.Map;
 
+import demo.shopping.po.GoodsType;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -20,4 +21,5 @@ public interface AdminGoodsDao {
 	public List<Map<String, Object>> selectCartGoods(Integer id);
 	public List<Map<String, Object>> selectFocusGoods(Integer id);
 	public List<Map<String, Object>> selectOrderdetailGoods(Integer id);
+	public List<GoodsType> getGoodsType();
 }

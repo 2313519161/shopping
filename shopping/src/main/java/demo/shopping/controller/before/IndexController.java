@@ -20,6 +20,7 @@ public class IndexController {
 
 	@RequestMapping("/toRegister")
 	public String toRegister(Model model) {
+
 		return indexService.toRegister(model);
 	}
 

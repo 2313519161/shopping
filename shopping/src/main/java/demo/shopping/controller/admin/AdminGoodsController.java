@@ -1,6 +1,7 @@
 package demo.shopping.controller.admin;
 import javax.servlet.http.HttpServletRequest;
 
+import demo.shopping.po.GoodsType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,7 @@ public class AdminGoodsController extends BaseController{
 	public String selectGoods(Model model, Integer pageCur, String act){
 		if(pageCur==null)pageCur=1;
 
+		System.out.println(pageCur);
 		List<Goods> allGoods=null;
 		int totalCount=adminGoodsService.CountInfo();
 		int totalPage=adminGoodsService.CountPage();
@@ -29,6 +31,7 @@ public class AdminGoodsController extends BaseController{
 		allGoods=adminGoodsService.selectGoods(pageCur, act);
 
 		model.addAttribute("allGoods", allGoods);
+
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("totalCount",totalCount);
 		model.addAttribute("pageCur", pageCur);
@@ -45,12 +48,16 @@ public class AdminGoodsController extends BaseController{
 
 	@RequestMapping("/toAddGoods")
 	public String toAddGoods(Model model){
-		model.addAttribute("goods", new Goods());
+
+		List<GoodsType> list=adminGoodsService.getGoodsType();
+		model.addAttribute("GoodsType",list);
 		return "admin/addGoods";
 	}
 
 	@RequestMapping("/addGoods")
 	public String addGoods(@ModelAttribute Goods goods, HttpServletRequest request, String updateAct){
+
+		System.out.println(goods.getGoprice());
 		return adminGoodsService.addOrUpdateGoods(goods, request, updateAct);
 	}
 

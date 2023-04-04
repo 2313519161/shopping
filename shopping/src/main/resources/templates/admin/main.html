@@ -2,7 +2,7 @@
 <html lang="en">
 <html xmlns:th="http://www.thymeleaf.org ">
 <head>
-    <title>后台主页面</title>
+    <title th:text="#{admin.main.page.title}"></title>
     <style type="text/css">
         * {
             margin: 0px;
@@ -95,41 +95,41 @@
 <div id="header">
     <br>
     <br>
-    <h1>欢迎进入后台管理系统！</h1>
+    <h1 th:text="#{admin.main.page.welcome(${auser.aname})}"></h1>
 </div>
 <div id="navigator">
     <ul>
-        <li><a>商品管理</a>
+        <li><a th:text="#{admin.main.page.GoodsManage}"></a>
             <ul>
-                <li><a href="adminGoods/toAddGoods" target="center">添加商品</a></li>
-                <li><a href="adminGoods/selectGoods?act=deleteSelect" target="center">删除商品</a></li>
-                <li><a href="adminGoods/selectGoods?act=updateSelect" target="center">修改商品</a></li>
-                <li><a href="adminGoods/selectGoods" target="center">查询商品</a></li>
+                <li><a th:href="@{/admin/adminGoods/toAddGoods}" target="center" th:text="#{admin.main.page.GoodsManage.toAddGoods}"></a></li>
+                <li><a href="adminGoods/selectGoods?act=deleteSelect" target="center" th:text="#{admin.main.page.GoodsManage.deleteSelect}"></a></li>
+                <li><a href="adminGoods/selectGoods?act=updateSelect" target="center" th:text="#{admin.main.page.GoodsManage.updateSelect}"></a></li>
+                <li><a href="adminGoods/selectGoods" target="center" th:text="#{admin.main.page.GoodsManage.searchGoods}"></a></li>
             </ul>
         </li>
-        <li><a>类型管理</a>
+        <li><a th:text="#{admin.main.page.TypeManage}"></a>
             <ul>
-                <li><a href="adminType/toAddType" target="center">添加类型</a></li>
-                <li><a href="adminType/toDeleteType" target="center">删除类型</a></li>
+                <li><a href="adminType/toAddType" target="center" th:text="#{admin.main.page.TypeManage.toAddType}"></a></li>
+                <li><a href="adminType/toDeleteType" target="center" th:text="#{admin.main.page.TypeManage.toDeleteType}"></a></li>
             </ul>
         </li>
-        <li><a>用户管理</a>
+        <li><a th:text="#{admin.main.page.UserManage}"></a>
             <ul>
-                <li><a href="adminUser/userInfo" target="center">删除用户</a></li>
+                <li><a href="adminUser/userInfo" target="center" th:text="#{admin.main.page.UserManage.DeleteuserInfo}"></a></li>
             </ul>
         </li>
-        <li><a>订单管理</a>
+        <li><a th:text="#{admin.main.page.OrderManagement}"></a>
             <ul>
-                <li><a href="adminOrder/orderInfo" target="center">删除订单</a></li>
+                <li><a href="adminOrder/orderInfo" target="center" th:text="#{admin.main.page.DeleteOrder}"></a></li>
             </ul>
         </li>
-        <li><a>公告管理</a>
+        <li><a th:text="#{admin.main.page.NoticeManage}"></a>
             <ul>
-                <li><a href="adminNotice/toAddNotice" target="center">添加公告</a></li>
-                <li><a href="adminNotice/deleteNoticeSelect" target="center">删除公告</a></li>
+                <li><a href="adminNotice/toAddNotice" target="center" th:text="#{admin.main.page.NoticeManage.toAddNotice}"></a></li>
+                <li><a href="adminNotice/deleteNoticeSelect" target="center" th:text="#{admin.main.page.NoticeManage.deleteNoticeSelect}"></a></li>
             </ul>
         </li>
-        <li><a th:href="login">安全退出</a></li>
+        <li><a th:href="login" th:text="#{admin.main.page.exit}"></a></li>
     </ul>
 
 </div>
@@ -138,7 +138,7 @@
 <!--    如果不加admin的话下拉列表就都不能够使用-->
 </div>
 
-<div id="footer">Copyright ©清华大学出版社</div>
+<div id="footer" th:text="#{admin.main.page.puhlish}"></div>
 </body>
 </html>
 </html>

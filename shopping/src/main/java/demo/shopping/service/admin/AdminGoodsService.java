@@ -1,6 +1,7 @@
 package demo.shopping.service.admin;
 import javax.servlet.http.HttpServletRequest;
 
+import demo.shopping.po.GoodsType;
 import org.springframework.ui.Model;
 
 import demo.shopping.po.Goods;
@@ -15,5 +16,6 @@ public interface AdminGoodsService {
 	public List<Goods> selectGoods( Integer pageCur, String act);
 	public int CountInfo();
 	public int CountPage();
+	public List<GoodsType> getGoodsType();
 
 }
