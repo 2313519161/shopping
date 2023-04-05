@@ -6,6 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import demo.shopping.service.admin.AdminTypeService;
+
+import java.util.List;
+
 @Controller
 @RequestMapping("/adminType")
 public class AdminTypeController extends BaseController{
@@ -14,22 +17,34 @@ public class AdminTypeController extends BaseController{
 
 	@RequestMapping("/toAddType")
 	public String toAddType(Model model) {
-		return adminTypeService.toAddType(model);
+		List list=adminTypeService.toAddType();
+		model.addAttribute("allTypes", list);
+		return "admin/addType";
 	}
 
+
 	@RequestMapping("/addType")
-	public String addType(String typename,Model model,HttpSession session) {
-		return adminTypeService.addType(typename, model, session);
+	public String addType(String typename,Model model,HttpSession session){
+		List list=adminTypeService.addType(typename);
+		session.setAttribute("goodsType", list);
+		return "forward:/adminType/toAddType";
 	}
 
 	@RequestMapping("/toDeleteType")
 	public String toDeleteType(Model model) {
-		return adminTypeService.toDeleteType(model);
+		List list=adminTypeService.toDeleteType();
+		model.addAttribute("allTypes",list);
+		return "admin/deleteType";
 	}
 
-	@RequestMapping("/deleteType")
+	@RequestMapping("/adminType")
 	public String deleteType(Integer id,Model model) {
-		return adminTypeService.deleteType(id, model);
+		System.out.println("Enter deleteType");
+		System.out.println(id);
+
+        int flag=adminTypeService.deleteType(id);
+		System.out.println("Exit deleteType");
+		return "forward:/adminType/toDeleteType";
 	}
 	
 }

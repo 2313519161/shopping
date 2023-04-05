@@ -109,8 +109,8 @@
         </li>
         <li><a th:text="#{admin.main.page.TypeManage}"></a>
             <ul>
-                <li><a href="adminType/toAddType" target="center" th:text="#{admin.main.page.TypeManage.toAddType}"></a></li>
-                <li><a href="adminType/toDeleteType" target="center" th:text="#{admin.main.page.TypeManage.toDeleteType}"></a></li>
+                <li><a th:href="@{/adminType/toAddType}" target="center" th:text="#{admin.main.page.TypeManage.toAddType}"></a></li>
+                <li><a th:href="@{/adminType/toDeleteType}" target="center" th:text="#{admin.main.page.TypeManage.toDeleteType}"></a></li>
             </ul>
         </li>
         <li><a th:text="#{admin.main.page.UserManage}"></a>

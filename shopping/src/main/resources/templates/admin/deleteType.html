@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org ">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title th:text="#{admin.deleteType.title}"></title>
+    <link href="css/admin/common.css" type="text/css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+    <style type="text/css">
+        table{
+            text-align: center;
+            border-collapse: collapse;
+        }
+        .bgcolor{
+            background-color: #F08080;
+        }
+    </style>
+    <script>
+
+        $(document).ready(function () {
+            // 本地库有问题，用的bootcdn,https://www.bootcdn.cn
+
+      $('.delete').click(function () {
+
+          if (confirm("确定要删除该类型吗?")){
+
+          }
+          else {
+              return false;
+          }
+      })
+        })
+    </script>
+</head>
+<body>
+<a th:if="${allTypes.size() == 0 }" th:text="#{admin.deleteType.remind}">
+
+</a>
+
+    <table border="1" bordercolor="PaleGreen"  th:if="${allTypes.size() != 0 }">
+        <tr>
+            <th width="200px" th:text="#{admin.deleteType.TypeId}"></th>
+            <th width="300px" th:text="#{admin.deleteType.Name}"></th>
+            <th width="300px" th:text="#{admin.deleteType.operate}"></th>
+        </tr>
+
+            <tr th:each="goodsType:${allTypes}">
+                <td th:text="${goodsType.id}"></td>
+                <td th:text="${goodsType.typename }"></td>
+                <td><a th:href="@{/adminType/adminType(id=${goodsType.id})}" class="delete" th:text="#{admin.deleteType.deleteButton}"></a></td>
+            </tr>
+
+        <tr>
+<!--            <td colspan="3">${msg} 不知道这行什么意思</td>-->
+        </tr>
+    </table>
+
+</body>
+</html>

@@ -23,7 +23,6 @@ public class AdminGoodsController extends BaseController{
 	public String selectGoods(Model model, Integer pageCur, String act){
 		if(pageCur==null)pageCur=1;
 
-		System.out.println(pageCur);
 		List<Goods> allGoods=null;
 		int totalCount=adminGoodsService.CountInfo();
 		int totalPage=adminGoodsService.CountPage();
@@ -57,7 +56,6 @@ public class AdminGoodsController extends BaseController{
 	@RequestMapping("/addGoods")
 	public String addGoods(@ModelAttribute Goods goods, HttpServletRequest request, String updateAct){
 
-		System.out.println(goods.getGoprice());
 		return adminGoodsService.addOrUpdateGoods(goods, request, updateAct);
 	}
 

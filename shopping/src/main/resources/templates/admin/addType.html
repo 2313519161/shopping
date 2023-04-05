@@ -1,0 +1,40 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org ">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title th:text="#{admin.addGoodsType.title}"></title>
+    <link href="../css/admin/common.css" type="text/css" rel="stylesheet">
+    <style type="text/css">
+        table{
+            text-align: center;
+            border-collapse: collapse;
+        }
+        .bgcolor{
+            background-color: #F08080;
+        }
+    </style>
+</head>
+<body>
+<a th:if="${allTypes.size() == 0 }" th:text="#{admin.addGoodsType.remind}">
+
+</a>
+    <table border="1" bordercolor="PaleGreen" th:if="${allTypes.size() != 0 }">
+        <tr>
+            <th width="200px" th:text="#{admin.addGoodsType.TypeId}"></th>
+            <th width="600px" th:text="#{admin.addGoodsType.Name}"></th>
+        </tr>
+
+            <tr th:each="goodsType:${allTypes }">
+                <td th:text="${goodsType.id }"></td>
+                <td th:text="${goodsType.typename }"></td>
+            </tr>
+    </table>
+
+<form th:action="@{/adminType/addType}" method="post" >
+
+    <div th:text="#{admin.addGoodsType.Name}"></div>
+    <input type="text" name="typename"/>
+    <input type="submit" value="添加"/>
+</form>
+</body>
+</html>
