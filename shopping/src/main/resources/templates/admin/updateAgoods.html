@@ -1,0 +1,74 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org ">
+<head>
+    <title th:text="#{admin.updateAGoods.title}"></title>
+    <link th:href="@{/css/admin/common.css}" type="text/css" rel="stylesheet">
+</head>
+<body>
+<form th:action="@{/admin/adminGoods/updateGoods}" method="post" modelAttribute="goods" enctype="multipart/form-data">
+    <table border=1 style="border-collapse: collapse">
+        <caption>
+            <font size=4 face=华文新魏 th:text="#{admin.updateAGoods.page.remind}"></font>
+        </caption>
+        <tr>
+            <td ><input type="hidden" name="id" th:value="${goods.id}"></td>
+
+        </tr>
+
+        <tr>
+            <td th:text="#{admin.updateAGoods.page.Name}"><font color="red" ></font></td>
+            <td>
+                <input type="text" th:value="${goods.gname}" name="gname">
+            </td>
+        </tr>
+        <tr>
+            <td th:text="#{admin.updateAGoods.page.Price}"><font color="red" ></font></td>
+            <td>
+                <input type="text" th:value="${goods.goprice}" name="goprice">
+            </td>
+        </tr>
+        <tr>
+            <td th:text="#{admin.updateAGoods.page.disCountPrice}"></td>
+            <td>
+                <input type="text" th:value="${goods.grprice}" name="grprice">
+            </td>
+        </tr>
+        <tr>
+            <td th:text="#{admin.updateAGoods.page.Stock}"></td>
+            <td>
+                <input type="text" th:value="${goods.gstore}" name="gstore">
+            </td>
+        </tr>
+        <tr>
+            <td th:text="#{admin.updateAGoods.page.Picture}"></td>
+            <td>
+                <input type="file" name="logoImage"/>
+                <br>
+                <!-- 从数据库取出的文件名 -->
+
+                    <img alt="" width="50" height="50"
+
+                         th:src="@{'/logos/' + ${goods.gpicture}}" th:if="${goods.gpicture!=''}"/>
+            </td>
+        </tr>
+        <tr>
+            <td th:text="#{admin.updateAGoods.page.Type}"></td>
+            <td>
+                <select >
+                    <option th:each="goodstype:${GoodsType}" th:text="${goodstype.typename}" ></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <input type="submit" value="提交"/>
+            </td>
+            <td align="left">
+                <input type="reset" value="重置"/>
+            </td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

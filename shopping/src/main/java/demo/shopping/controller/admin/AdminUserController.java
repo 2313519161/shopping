@@ -7,17 +7,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import demo.shopping.service.admin.AdminUserService;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/adminUser")
 public class AdminUserController extends BaseController{
 	@Autowired
 	private AdminUserService adminUserService;
 	@RequestMapping("/userInfo")
-	public String userInfo(Model model) {
-		return adminUserService.userInfo(model);
+	public String userInfo(Model model){
+		List list=adminUserService.userInfo();
+		model.addAttribute("userList", list);
+		return "admin/userManager";
 	}
 	@RequestMapping("/deleteuserManager")
-	public String deleteuserManager(Integer id, Model model) {
-		return adminUserService.deleteuserManager(id, model);
+	public String deleteuserManager(Integer id) {
+		int flag=adminUserService.deleteuserManager(id);
+		if (flag>0)
+		return "forward:/adminUser/userInfo";
+		return "删除失败,跳转到其他页面";
 	}
+
 }

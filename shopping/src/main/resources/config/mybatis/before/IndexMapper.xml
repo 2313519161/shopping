@@ -50,4 +50,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select gt.*, gy.typename from GOODSTABLE gt,GOODSTYPE gy where gt.goodstype_id = gy.id 
 		and gt.gname like concat('%',#{mykey},'%')
 	</select>
+	<select id="getGoodsType" resultType="GoodsType">
+        select typename from goodstype
+    </select>
 </mapper>

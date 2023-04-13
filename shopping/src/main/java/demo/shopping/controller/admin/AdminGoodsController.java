@@ -3,6 +3,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import demo.shopping.po.GoodsType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,56 +23,156 @@ public class AdminGoodsController extends BaseController{
 	@RequestMapping("/selectGoods")
 	public String selectGoods(Model model, Integer pageCur, String act){
 		if(pageCur==null)pageCur=1;
-
 		List<Goods> allGoods=null;
 		int totalCount=adminGoodsService.CountInfo();
 		int totalPage=adminGoodsService.CountPage();
-
 		allGoods=adminGoodsService.selectGoods(pageCur, act);
-
 		model.addAttribute("allGoods", allGoods);
-
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("totalCount",totalCount);
 		model.addAttribute("pageCur", pageCur);
 
-		if("deleteSelect".equals(act)){
-			return "admin/deleteSelectGoods";
-		}else if("updateSelect".equals(act)){
-			return "admin/updateSelectGoods";
-		}else{
 			return "admin/selectGoods";
-		}
+
+	}
+	@RequestMapping("/toDeleteGoods")
+	public String toDeleteGoods(Model model,Integer pageCur){
+		if(pageCur==null)pageCur=1;
+		List<Goods> allGoods=null;
+		int totalCount=adminGoodsService.CountInfo();
+		int totalPage=adminGoodsService.CountPage();
+		allGoods=adminGoodsService.selectGoods(pageCur,null);
+		model.addAttribute("allGoods", allGoods);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("totalCount",totalCount);
+		model.addAttribute("pageCur", pageCur);
+		return "admin/deleteSelectGoods";
+	}
+
+	@RequestMapping("/toUpadateGoods")
+	public String toUpadateGoods(Model model,Integer pageCur){
+		if(pageCur==null)pageCur=1;
+		List<Goods> allGoods=null;
+		int totalCount=adminGoodsService.CountInfo();
+		int totalPage=adminGoodsService.CountPage();
+		allGoods=adminGoodsService.selectGoods(pageCur,null);
+		model.addAttribute("allGoods", allGoods);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("totalCount",totalCount);
+		model.addAttribute("pageCur", pageCur);
+		return "admin/updateSelectGoods";
 
 	}
 
+
+
+
+
 	@RequestMapping("/toAddGoods")
 	public String toAddGoods(Model model){
-
 		List<GoodsType> list=adminGoodsService.getGoodsType();
 		model.addAttribute("GoodsType",list);
 		return "admin/addGoods";
 	}
 
+
 	@RequestMapping("/addGoods")
-	public String addGoods(@ModelAttribute Goods goods, HttpServletRequest request, String updateAct){
+	public String addGoods(@ModelAttribute Goods goods ,HttpServletRequest request ){
 
-		return adminGoodsService.addOrUpdateGoods(goods, request, updateAct);
+		int flag=adminGoodsService.addGoods(goods);
+		if (flag>0){
+			return "forward:/admin/adminGoods/selectGoods";
+		}
+		return "";
 	}
 
+
+
+	//进行更新操作
+	@RequestMapping("/updateGoods")
+	public String updateGoods(@ModelAttribute Goods goods){
+		System.out.println(goods.getId());
+		int flag=adminGoodsService.updateGoods(goods);
+		if (flag>0){
+			return "forward:/admin/adminGoods/selectGoods";
+		}
+		return "";
+	}
+
+	//在更新页面查找一个商品,以及商品类型
 	@RequestMapping("/selectAGoods")
-	public String selectAGoods(Model model, Integer id, String act){
+	public String selectAGoods( Model model,Integer id){
 
-		return adminGoodsService.selectAGoods(model, id, act);
+	     Goods goods=null;
+		 goods=adminGoodsService.selectAGoods(id);
+		 List list=adminGoodsService.getGoodsType();
+
+		if(goods!=null){
+			model.addAttribute("goods", goods);
+			model.addAttribute("GoodsType",list);
+			return "admin/updateAgoods";
+		}
+		return "待写入";
 	}
+
+	@RequestMapping("showGoodsDetil")
+	public String showGoodsDetil(Model model,Integer id){
+		Goods goods=null;
+		goods=adminGoodsService.selectAGoods(id);
+
+		List list=adminGoodsService.getGoodsType();
+
+		if(goods!=null){
+			model.addAttribute("goods", goods);
+			model.addAttribute("GoodsType",list);
+			return "admin/goodsDetail";
+		}
+		return "待写入";
+
+	}
+
 
 	@RequestMapping("/deleteGoods")
-	public String deleteGoods(Integer ids[], Model model) {
-		return adminGoodsService.deleteGoods(ids, model);
+	public String deleteGoods(Integer ids[], Model model){
+		//删除一堆商品
+		int flag;
+		flag= adminGoodsService.deleteGoods(ids);
+		if (flag>0){
+			return "forward:/admin/adminGoods/toDeleteGoods"; }
+		    return "";
 	}
 
 	@RequestMapping("/deleteAGoods")
-	public String deleteAGoods(Integer id, Model model) {
-		return adminGoodsService.deleteAGoods(id, model);
+	public String deleteAGoods(Integer id) {
+		//删除一个商品
+
+		int flag;
+		flag= adminGoodsService.deleteAGoods(id);
+
+		if (flag>0){
+			return "forward:/admin/adminGoods/toDeleteGoods";
+		}
+	return "";
 	}
+
+	@RequestMapping("/selectGoodsImage")
+	public String selectGoodsImage(int id){
+
+		String s="logos/";
+
+		s+=adminGoodsService.selectAGoods(id).getGpicture();
+		System.out.println(s);
+		return s;
+	}
+//	@RequestMapping("/updateAgoods")
+//	public String updateAgoods( Model model,Integer id){
+//		Goods goods=null;
+//		goods=adminGoodsService.selectAGoods(id);
+//		if(goods!=null){
+//			model.addAttribute("goods", goods);
+//			return "admin/updateAgoods";
+//		}
+//		return "待写入";
+//	}
+
 }

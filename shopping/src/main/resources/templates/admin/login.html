@@ -4,9 +4,9 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title th:text="#{admin.login.title}"></title>
-    <link href="../css/before/daohang.css" rel="stylesheet" type="text/css" />
-    <link href="../css/before/common.css" rel="stylesheet" type="text/css" />
-    <link href="../css/before/style.css" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/before/daohang.css}" rel="stylesheet" type="text/css"/>
+    <link href="@{/css/before/common.css}" rel="stylesheet" type="text/css" />
+    <link href="@{/css/before/style.css}" rel="stylesheet" type="text/css" />
     <style type="text/css">
         table{
             text-align: center;
@@ -64,6 +64,5 @@
         </tr>
     </table>
 </form>
-
 </body>
 </html>

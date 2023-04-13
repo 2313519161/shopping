@@ -1,0 +1,54 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org ">
+<head>
+
+    <title th:text="#{admin.userManage.page.title}"></title>
+    <link th:href="@{/css/admin/common.css}" type="text/css" rel="stylesheet">
+    <style type="text/css">
+        table{
+            text-align: center;
+            border-collapse: collapse
+        }
+        .bgcolor{
+            background-color: #F08080;
+        }
+    </style>
+    <script type="text/javascript">
+        function changeColor(obj){
+            obj.className = "bgcolor";
+        }
+        function changeColor1(obj){
+            obj.className = "";
+        }
+        function checkDel(id){
+            if(window.confirm("是否删除该用户？")){
+                window.location.href="/shopping/adminUser/deleteuserManager?id="+id;
+            }
+        }
+    </script>
+</head>
+<body>
+<br>
+<table border="1" bordercolor="PaleGreen">
+    <tr>
+        <th width="200px" th:text="#{admin.userManage.page.ID}"></th>
+        <th width="200px" th:text="#{admin.userManage.page.Emainl}"></th>
+        <th width="200px" th:text="#{admin.userManage.page.Pwd}"></th>
+        <th width="250px" th:text="#{admin.userManage.page.delete}"></th>
+    </tr>
+
+        <tr onmousemove="changeColor(this)" onmouseout="changeColor1(this)" th:each="n:${userList}">
+            <td th:text="${n.id}"></td>
+            <td th:text="${n.bemail}"></td>
+            <td><input type="password" th:value="${n.bpwd}" readonly></td>
+            <td>
+                <a th:href="'javaScript:checkDel('+${n.id}+')'" th:text="#{admin.userManage.page.delete}"></a>
+            </td>
+        </tr>
+
+    <tr>
+
+    </tr>
+</table>
+</body>
+</html>

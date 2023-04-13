@@ -22,4 +22,5 @@ public interface AdminGoodsDao {
 	public List<Map<String, Object>> selectFocusGoods(Integer id);
 	public List<Map<String, Object>> selectOrderdetailGoods(Integer id);
 	public List<GoodsType> getGoodsType();
+	public List<GoodsType> getAllGoodsType();
 }

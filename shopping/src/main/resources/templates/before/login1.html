@@ -35,13 +35,17 @@
     <title th:text="#{login.page.title}"></title>
 </head>
 <body>
+<!--<div id="content">-->
+<!--    <iframe  width="1268px" height="150px"   name="center" frameborder="0" th:src="@{/showHeadPage}"></iframe>-->
+
+<!--</div>-->
 <div style="text-align: center">
 
 <!--使用modelAttribute与user直接绑定-->
     <form th:action="@{/user/login}" method="post" modelAttribute="buser"  name = "loginform">
         <table>
             <tr>
-                <td colspan="2"><img src="../images/admin/login.gif"></td>
+                <td colspan="2"><img src="images/admin/login.gif"></td>
             </tr>
             <tr>
                 <td th:text="#{login.page.youxiang}"></td>
@@ -57,7 +61,7 @@
             </tr>
             <tr>
                 <td>
-                    <img id="code" src="../validateCode"/>
+                    <img id="code" src="validateCode"/>
                 </td>
                 <td class="ared">
                     <a href="javascript:refreshCode();"><font color="blue" th:text="#{login.page.huanyan}"></font></a>
@@ -66,8 +70,8 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <input type="image" src="../images/admin/ok.gif" onclick="gogo()">
-                    <input type="image" src="../images/admin/cancel.gif" onclick="cancel()">
+                    <input type="image" src="images/admin/ok.gif" onclick="gogo()">
+                    <input type="image" src="images/admin/cancel.gif" onclick="cancel()">
                 </td>
             </tr>
             <tr id="msg">

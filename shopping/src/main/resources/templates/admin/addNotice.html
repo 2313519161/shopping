@@ -1,0 +1,37 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org ">
+<head>
+    <title th:text="#{admin.addNotice.page.title}"></title>
+    <link th:href="@{/css/admin/common.css}" type="text/css" rel="stylesheet">
+</head>
+<body>
+<form th:action="@{/adminNotice/addNotice}" method="post" modelAttribute="notice">
+    <table border=1 style="border-collapse: collapse">
+        <caption>
+            <font size=4 face=华文新魏 th:text="#{admin.addNotice.page.addNotice}"></font>
+        </caption>
+        <tr>
+            <td><font color="red" th:text="#{admin.addNotice.page.head}"></font></td>
+            <td>
+                <input name="ntitle"/>
+            </td>
+        </tr>
+        <tr>
+            <td><font color="red"th:text="#{admin.addNotice.page.content}"></font></td>
+            <td>
+                <textarea name="ncontent" cols="80" rows="15"></textarea>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <input type="submit" value="提交"/>
+
+                <input type="reset" value="重置"/>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

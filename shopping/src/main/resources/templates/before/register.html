@@ -4,9 +4,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <link href="../css/before/daohang.css" rel="stylesheet" type="text/css" />
-    <link href="../css/before/common.css" rel="stylesheet" type="text/css" />
-    <link href="../css/before/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/before/daohang.css" rel="stylesheet" type="text/css" />
+    <link href="css/before/common.css" rel="stylesheet" type="text/css" />
+    <link href="css/before/style.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         //刷新验证码
         function refreshCode(){
@@ -27,6 +27,10 @@
     <title th:text="#{register.page.title}"></title>
 </head>
 <body>
+<!--<div id="content">-->
+<!--    <iframe  width="1268px" height="150px"   name="center" frameborder="0" th:src="@{/showHeadPage}"></iframe>-->
+
+<!--</div>-->
 <div class="clearfix">
     <div class="blank20"></div>
     <div class="box4">
@@ -49,8 +53,8 @@
                             <td width="16%" align="right"><span class="cl_f30">*</span>
                                 E-mail：</td>
                             <td width="59%"><input type="text" name="bemail"
-                                                   id="textfield" class="my_txt_350" th:value="${buser.bemail}" /></td>
-                            <td width="25%" th:vale="${msg}"></td>
+                                                   id="textfield" class="my_txt_350" /></td>
+
                         </tr>
                         <tr>
                             <td align="right">&nbsp;</td>

@@ -1,0 +1,98 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org ">
+<head>
+    <title th:text="#{user.head.page.title}"></title>
+    <link th:href="@{/css/before/daohang.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/before/common.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/before/style.css}" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        function clearValue(){
+            document.myForm.mykey.value = "";
+        }
+    </script>
+</head>
+<body>
+
+
+<div class="all_zong">
+    <!--最上面 灰色条部分-->
+    <div class="all_zong_top">
+        <div class="all_zong_top_right a8c">
+            <table border="0" cellspacing="0" cellpadding="0" class="main_login">
+                <tr>
+                    <td>
+                        <p id="content">
+
+
+                             <span th:if="${bruser!=null}" th:text="#{user.head.page.welcome( ${bruser.bemail })}"></span>
+                            <span th:if="${bruser==null}"><a th:href="@{/toLogin}" th:text="#{user.head.page.login}" target="centers"></a></span>
+                        </p>
+                    </td>
+                    <td>
+                        <p><span class="xx">|</span>
+                            <a th:href="@{/toRegister}" th:text="#{user.head.page.register}" target="centers"></a>
+                        </p>
+                    </td>
+                    <td><span class="xx">|</span><a th:href="@{/userCenter}" th:text="#{user.head.page.userCenter}" target="centers"></a></td>
+                    <!-- 没有登录 -->
+
+                        <td th:if="${bruser!= null}"><a th:href="@{/user/exit}" th:text="#{user.head.page.exit}" target="centers"></a><span
+                                class="xx">|</span></td>
+
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!--end-->
+    <!--logo 搜索-->
+    <div class="all_zong_logo">
+        <div class="all_zong_logo2">
+            <img th:src="@{/images/before/mylogo.png}"/>
+        </div>
+        <div class="back_search">
+            <div class="back_search_red">
+                <form action="search" name="myForm" method="post">
+                    <div class="div2">
+                        <input type="text" name="mykey" class="txt" th:placeholder="#{user.head.page.search}"  />
+                    </div>
+                    <div class="div1">
+                        <input type="submit" class="an"  value="搜索" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--end-->
+    </div>
+    <!--红色 导航-->
+    <div class="skin_a">
+        <div class="front_daohangbj">
+            <div class="all_zong">
+                <div class="front_daohang">
+                    <ul>
+                        <li class="backbj"><a href="before?id=0" th:text="#{user.head.page.title}"></a></li>
+                        <!-- 显示商品类型 -->
+
+                            <li th:each="g:${goodsType}"><a href="before?id=${g.id}" th:text=" ${g.typename }">
+                               </a>
+                            </li>
+
+                        <li class="buy">
+                            <p class="car">
+                                <a href="cart/selectCart" th:text="#{user.head.page.cart}"></a>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--红色 导航 end-->
+</div>
+
+<!--<div>-->
+<!--用replace或者insert代替iframe-->
+<!--    <iframe  width="1268px" height="650px"   name="centers" frameborder="0" th:src="@{/before}"></iframe>-->
+<!--</div>-->
+
+</body>
+</html>

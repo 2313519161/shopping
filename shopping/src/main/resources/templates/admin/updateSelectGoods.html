@@ -1,0 +1,68 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org ">
+<head>
+    <title th:text="#{admin.updateSelectGoods.page.title}"></title>
+    <link th:href="@{/css/admin/common.css}" type="text/css" rel="stylesheet">
+    <style type="text/css">
+        table{
+            text-align: center;
+            border-collapse: collapse;
+        }
+        .bgcolor{
+            background-color: #F08080;
+        }
+    </style>
+    <script type="text/javascript">
+        function changeColor(obj){
+            obj.className = "bgcolor";
+        }
+        function changeColor1(obj){
+            obj.className = "";
+        }
+    </script>
+</head>
+<body>
+<a th:if="${allGoods.size() == 0 }" th:text="#{admin.updateSelectGoods.page.remind}">
+
+</a>
+
+<form th:action="@{/admin/adminGoods/deleteGoods}" name="deleteForm" th:if ="${allGoods.size() != 0 }">
+    <table border="1" bordercolor="PaleGreen">
+        <tr>
+            <th width="100px" th:text="#{admin.updateSelectGoods.page.ID}"></th>
+            <th width="200px" th:text="#{admin.updateSelectGoods.page.Name}"></th>
+            <th width="200px" th:text="#{admin.updateSelectGoods.page.Price}"></th>
+            <th width="100px" th:text="#{admin.updateSelectGoods.page.Stock}"></th>
+            <th width="100px" th:text="#{admin.updateSelectGoods.page.Detail}"></th>
+            <th width="100px" th:text="#{admin.updateSelectGoods.page.Operate}"></th>
+        </tr>
+        <tr onmousemove="changeColor(this)" onmouseout="changeColor1(this)" th:each="goods:${allGoods}">
+            <td th:value="${goods.id}" th:text="${goods.id}"></td>
+            <td th:text="${goods.gname}"></td>
+            <td th:text="${goods.grprice}"></td>
+            <td th:text="${goods.gstore}"></td>
+            <td ><a th:href="@{/admin/adminGoods/showGoodsDetil(id=${goods.id})}" target="_blank" th:text="#{admin.updateSelectGoods.page.Detail}"></a></td>
+            <td>
+                <a th:href="@{/admin/adminGoods/selectAGoods(id=${goods.id})}"  th:text="#{admin.updateSelectGoods.page.Update}"></a>
+            </td>
+        </tr>
+
+
+        <tr>
+            <td colspan="6" align="right" width="100%" >
+                <a th:text="#{admin.selectGoods.page.info(${totalCount},${totalPage},${pageCur})}"></a>
+
+                <a th:href="@{/admin/adminGoods/toUpadateGoods(pageCur=${pageCur-1})}"
+                   th:if="${pageCur!=1}"
+                   th:text="#{admin.updateSelectGoods.page.BeforePage}"
+                ></a>
+                <a th:href="@{/admin/adminGoods/toUpadateGoods(pageCur=${pageCur+1})}"
+                   th:if ="${pageCur != totalPage && totalPage != 0}"
+                   th:text="#{admin.updateSelectGoods.page.NextPage}">
+                </a>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

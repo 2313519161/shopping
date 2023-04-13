@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import demo.shopping.po.Goods;
 import demo.shopping.service.before.IndexService;
+
+import java.util.List;
+
 @Controller
 public class IndexController {
 	@Autowired
@@ -18,14 +21,23 @@ public class IndexController {
 		return indexService.before(model, session, goods);
 	}
 
+	@RequestMapping("/showHeadPage")
+	public String showHeadPage(Model model){
+     //发送全部的商品类型
+
+		List list=indexService.getAllGoodsType();
+        model.addAttribute("goodsType",list);
+         return "before/head";
+	}
+
 	@RequestMapping("/toRegister")
 	public String toRegister(Model model) {
-
 		return indexService.toRegister(model);
 	}
 
 	@RequestMapping("/toLogin")
 	public String toLogin(Model model) {
+		System.out.println("enter toLogin");
 		return indexService.toLogin(model);
 	}
 

@@ -19,6 +19,8 @@ import org.springframework.ui.Model;
 import demo.shopping.dao.AdminGoodsDao;
 import demo.shopping.po.Goods;
 import demo.shopping.util.MyUtil;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 @Service("adminGoodsService")
 @Transactional
 public class AdminGoodsServiceImpl implements AdminGoodsService{
@@ -28,13 +30,11 @@ public class AdminGoodsServiceImpl implements AdminGoodsService{
 	private AppSettings appSettings;
 
 	@Override
-	public String addOrUpdateGoods(Goods goods, HttpServletRequest request, String updateAct) {
+	public int addGoods(Goods goods) {
 		String newFileName ="";
 		String fileName = goods.getLogoImage().getOriginalFilename();
-
 		if(fileName.length() > 0){
 			String realpath = appSettings.getLogoPath();
-
 			String fileType = fileName.substring(fileName.lastIndexOf('.'));
 			newFileName = MyUtil.getStringID() + fileType;
 			goods.setGpicture(newFileName);
@@ -48,19 +48,35 @@ public class AdminGoodsServiceImpl implements AdminGoodsService{
 	            e.printStackTrace();  
 	        }
 		}
-		if("update".equals(updateAct)){
-	       if(adminGoodsDao.updateGoodsById(goods) > 0){
-	        	return "forward:/adminGoods/selectGoods?act=updateSelect";
-	        }else{
-	        	return "/adminGoods/updateAgoods";
-	       }
-		}else{
-			if(adminGoodsDao.addGoods(goods) > 0){
-				return "forward:/adminGoods/selectGoods";
-			}else{
-				return "card/addCard";
+		  int flag;
+
+			  flag=adminGoodsDao.addGoods(goods) ;
+				return flag;
+	}
+
+	@Override
+
+	public int updateGoods(Goods goods) {
+		String newFileName ="";
+		String fileName = goods.getLogoImage().getOriginalFilename();
+		if(fileName.length() > 0){
+			String realpath = appSettings.getLogoPath();
+			String fileType = fileName.substring(fileName.lastIndexOf('.'));
+			newFileName = MyUtil.getStringID() + fileType;
+			goods.setGpicture(newFileName);
+			File targetFile = new File(realpath, newFileName);
+			if(!targetFile.exists()){
+				targetFile.mkdirs();
+			}
+			try {
+				goods.getLogoImage().transferTo(targetFile);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
+
+	adminGoodsDao.updateGoodsById(goods) ;
+	return 1;
 	}
 
 	@Override
@@ -82,7 +98,7 @@ public class AdminGoodsServiceImpl implements AdminGoodsService{
 	@Override
 	public List<GoodsType> getGoodsType() {
 		//查找所有的商品类型
-		List<GoodsType> list=adminGoodsDao.getGoodsType();
+		List<GoodsType> list=adminGoodsDao.getAllGoodsType();
 
 		return list;
 	}
@@ -94,48 +110,55 @@ public class AdminGoodsServiceImpl implements AdminGoodsService{
 	if (pageCur==null)pageCur=0;
 		List<Goods> allGoods = adminGoodsDao.selectAllGoodsByPage((pageCur-1)*5,5);
 
-
 		return allGoods;
 
 	}
 
 	@Override
-	public String selectAGoods(Model model, Integer id, String act) {
+	public Goods selectAGoods( Integer id) {
+
 		Goods agoods = adminGoodsDao.selectGoodsById(id);
-		model.addAttribute("goods", agoods);
-		if("updateAgoods".equals(act)){
-			return "admin/updateAgoods";
-		}
-		return "admin/goodsDetail";
+
+		return agoods;
+
 	}
 
 	@Override
-	public String deleteGoods(Integer[] ids, Model model) {
+	public int deleteGoods(Integer[] ids) {
 		List<Integer> list = new ArrayList<Integer>();
 		for (int i = 0; i < ids.length; i++) {
-			if(adminGoodsDao.selectCartGoods(ids[i]).size() > 0 ||
-					adminGoodsDao.selectFocusGoods(ids[i]).size() > 0 || 
-					adminGoodsDao.selectOrderdetailGoods(ids[i]).size() > 0) {
-				model.addAttribute("msg", "��Ʒ�й�����������ɾ����");
-				return "forward:/adminGoods/selectGoods?act=deleteSelect";
-			}
+//			if(adminGoodsDao.selectCartGoods(ids[i]).size() > 0 ||
+//					adminGoodsDao.selectFocusGoods(ids[i]).size() > 0 ||
+//					adminGoodsDao.selectOrderdetailGoods(ids[i]).size() > 0) {
+//
+//				return "forward:/adminGoods/selectGoods?act=deleteSelect";
+//			}
 			list.add(ids[i]);
 		}
-		adminGoodsDao.deleteGoods(list);
-		model.addAttribute("msg", "�ɹ�ɾ����Ʒ��");
-		return "forward:/adminGoods/selectGoods?act=deleteSelect";
+		int flag;
+		flag= adminGoodsDao.deleteGoods(list);
+
+		return flag;
+
 	}
 
 	@Override
-	public String deleteAGoods(Integer id, Model model) {
-		if(adminGoodsDao.selectCartGoods(id).size() > 0 ||
-				adminGoodsDao.selectFocusGoods(id).size() > 0 || 
-				adminGoodsDao.selectOrderdetailGoods(id).size() > 0) {
-			model.addAttribute("msg", "��Ʒ�й�����������ɾ����");
-			return "forward:/adminGoods/selectGoods?act=deleteSelect";
-		}
-		adminGoodsDao.deleteAGoods(id);
-		model.addAttribute("msg", "�ɹ�ɾ����Ʒ��");
-		return "forward:/adminGoods/selectGoods?act=deleteSelect";
+	public int deleteAGoods(Integer id) {
+//		if(adminGoodsDao.selectCartGoods(id).size() > 0 ||
+//				adminGoodsDao.selectFocusGoods(id).size() > 0 ||
+//				adminGoodsDao.selectOrderdetailGoods(id).size() > 0) {
+//
+//			return "forward:/adminGoods/selectGoods?act=deleteSelect";
+//		}
+		int flag;
+		flag=adminGoodsDao.deleteAGoods(id);
+
+	   return flag;
+
+	}
+
+	@Override
+	public String imagePath() {
+		return appSettings.getLogoPath();
 	}
 }

@@ -102,9 +102,9 @@
         <li><a th:text="#{admin.main.page.GoodsManage}"></a>
             <ul>
                 <li><a th:href="@{/admin/adminGoods/toAddGoods}" target="center" th:text="#{admin.main.page.GoodsManage.toAddGoods}"></a></li>
-                <li><a href="adminGoods/selectGoods?act=deleteSelect" target="center" th:text="#{admin.main.page.GoodsManage.deleteSelect}"></a></li>
-                <li><a href="adminGoods/selectGoods?act=updateSelect" target="center" th:text="#{admin.main.page.GoodsManage.updateSelect}"></a></li>
-                <li><a href="adminGoods/selectGoods" target="center" th:text="#{admin.main.page.GoodsManage.searchGoods}"></a></li>
+                <li><a th:href="@{/admin/adminGoods/toDeleteGoods}" target="center" th:text="#{admin.main.page.GoodsManage.deleteSelect}"></a></li>
+                <li><a th:href="@{/admin/adminGoods/toUpadateGoods}" target="center" th:text="#{admin.main.page.GoodsManage.updateSelect}"></a></li>
+                <li><a th:href="@{/admin/adminGoods/selectGoods}" target="center" th:text="#{admin.main.page.GoodsManage.searchGoods}"></a></li>
             </ul>
         </li>
         <li><a th:text="#{admin.main.page.TypeManage}"></a>
@@ -115,27 +115,26 @@
         </li>
         <li><a th:text="#{admin.main.page.UserManage}"></a>
             <ul>
-                <li><a href="adminUser/userInfo" target="center" th:text="#{admin.main.page.UserManage.DeleteuserInfo}"></a></li>
+                <li><a th:href="@{/adminUser/userInfo}" target="center" th:text="#{admin.main.page.UserManage.DeleteuserInfo}"></a></li>
             </ul>
         </li>
         <li><a th:text="#{admin.main.page.OrderManagement}"></a>
             <ul>
-                <li><a href="adminOrder/orderInfo" target="center" th:text="#{admin.main.page.DeleteOrder}"></a></li>
+                <li><a th:href="@{/adminOrder/orderInfo}" target="center" th:text="#{admin.main.page.DeleteOrder}"></a></li>
             </ul>
         </li>
         <li><a th:text="#{admin.main.page.NoticeManage}"></a>
             <ul>
-                <li><a href="adminNotice/toAddNotice" target="center" th:text="#{admin.main.page.NoticeManage.toAddNotice}"></a></li>
-                <li><a href="adminNotice/deleteNoticeSelect" target="center" th:text="#{admin.main.page.NoticeManage.deleteNoticeSelect}"></a></li>
+                <li><a th:href="@{/adminNotice/toAddNotice}" target="center" th:text="#{admin.main.page.NoticeManage.toAddNotice}"></a></li>
+                <li><a th:href="@{/adminNotice/deleteNoticeSelect}" target="center" th:text="#{admin.main.page.NoticeManage.deleteNoticeSelect}"></a></li>
             </ul>
         </li>
-        <li><a th:href="login" th:text="#{admin.main.page.exit}"></a></li>
+        <li><a href="login" th:text="#{admin.main.page.exit}"></a></li>
     </ul>
 
 </div>
 <div id="content">
     <iframe   name="center" frameborder="0" th:src="@{/admin/adminGoods/selectGoods}"></iframe>
-<!--    如果不加admin的话下拉列表就都不能够使用-->
 </div>
 
 <div id="footer" th:text="#{admin.main.page.puhlish}"></div>

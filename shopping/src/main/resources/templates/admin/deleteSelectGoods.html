@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org ">
+<head>
+    <title th:text="#{admin.deleteSelectGoods.page.title}"></title>
+    <link th:href="@{/css/admin/common.css}" type="text/css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+    <style type="text/css">
+        table{
+            text-align: center;
+            border-collapse: collapse;
+        }
+        .bgcolor{
+            background-color: #F08080;
+        }
+    </style>
+    <script type="text/javascript">
+
+            function changeColor(obj) {
+                obj.className = "bgcolor";
+            }
+
+            function changeColor1(obj) {
+                obj.className = "";
+            }
+
+    </script>
+    <script type="text/javascript">
+
+        function confirmDelete(){
+            var n = document.deleteForm.ids.length;
+            var count = 0;//统计没有选中的个数
+            for(var i = 0; i < n; i++){
+                if(!document.deleteForm.ids[i].checked){
+                    count++;
+                }else{
+                    break;
+                }
+            }
+            if(n > 1){
+                if(count == n){
+                    alert("请选择被删除的商品！");
+                    count = 0;
+                    return false;
+                }
+            }else{
+                if(!document.deleteForm.ids.checked){
+                    alert("请选择被删除的商品！");
+                    return false;
+                }
+            }
+            if(window.confirm("真的删除吗？really?")){
+                document.deleteForm.submit();
+                return true;
+            }
+            return false;
+        }
+
+
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // 本地库有问题，用的bootcdn,https://www.bootcdn.cn
+
+            $('.delete').click(function () {
+
+                if (confirm("确定要删除该类型吗?")){
+
+                }
+                else {
+                    return false;
+                }
+            })
+        })
+    </script>
+</head>
+<body>
+<a th:if="${allGoods.size() == 0 }" th:text="#{admin.deleteSelectGoods.page.remind}">
+
+</a>
+
+    <form th:action="@{/admin/adminGoods/deleteGoods}" name="deleteForm" th:if ="${allGoods.size() != 0 }">
+        <table border="1" bordercolor="PaleGreen">
+            <tr>
+                <th width="100px" th:text="#{admin.deleteSelectGoods.page.ID}"></th>
+                <th width="200px" th:text="#{admin.deleteSelectGoods.page.Name}"></th>
+                <th width="200px" th:text="#{admin.deleteSelectGoods.page.Price}"></th>
+                <th width="100px" th:text="#{admin.deleteSelectGoods.page.Stock}"></th>
+                <th width="100px" th:text="#{admin.deleteSelectGoods.page.Detail}"></th>
+                <th width="100px" th:text="#{admin.deleteSelectGoods.page.Operate}"></th>
+            </tr>
+                <tr onmousemove="changeColor(this)" onmouseout="changeColor1(this)" th:each="goods:${allGoods}">
+                    <td><input type="checkbox" name="ids" th:value="${goods.id}"/></td>
+                    <td th:text="${goods.gname}"></td>
+                    <td th:text="${goods.grprice}"></td>
+                    <td th:text="${goods.gstore}"></td>
+                    <td ><a th:href="@{/admin/adminGoods/showGoodsDetil(id=${goods.id})}" target="_blank" th:text="#{admin.deleteSelectGoods.page.Detail}"></a></td>
+                    <td>
+                        <a th:href="@{/admin/adminGoods/deleteAGoods(id=${goods.id})}" class="delete" th:text="#{admin.deleteSelectGoods.page.delete}"></a>
+                    </td>
+                </tr>
+
+            <tr>
+                <td colspan="6">
+                    <input type="button" value="删除" onclick="confirmDelete()">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6" align="right" width="100%" >
+                    <a th:text="#{admin.selectGoods.page.info(${totalCount},${totalPage},${pageCur})}"></a>
+
+                    <a th:href="@{/admin/adminGoods/toDeleteGoods(pageCur=${pageCur-1})}"
+                       th:if="${pageCur!=1}"
+                       th:text="#{admin.deleteSelectGoods.page.BeforePage}"
+                    ></a>
+                    <a th:href="@{/admin/adminGoods/toDeleteGoods(pageCur=${pageCur+1})}"
+                       th:if ="${pageCur != totalPage && totalPage != 0}"
+                       th:text="#{admin.deleteSelectGoods.page.NextPage}">
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

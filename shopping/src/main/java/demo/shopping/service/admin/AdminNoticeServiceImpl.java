@@ -7,30 +7,35 @@ import org.springframework.ui.Model;
 
 import demo.shopping.dao.AdminNoticeDao;
 import demo.shopping.po.Notice;
+
+import java.util.List;
+
 @Service("adminNoticeService")
 @Transactional
 public class AdminNoticeServiceImpl implements AdminNoticeService{
 	@Autowired
 	private AdminNoticeDao adminNoticeDao;
 	@Override
-	public String addNotice(Notice notice) {
-		adminNoticeDao.addNotice(notice);
-		return "forward:/adminNotice/deleteNoticeSelect";
+	public int addNotice(Notice notice) {
+		int flag=adminNoticeDao.addNotice(notice);
+		return flag;
 	}
 	@Override
-	public String deleteNoticeSelect(Model model) {
-		model.addAttribute("allNotices", adminNoticeDao.deleteNoticeSelect());
-		return "admin/deleteNoticeSelect";
+	public List<Notice> deleteNoticeSelect() {
+
+	List list=adminNoticeDao.deleteNoticeSelect();
+		return list;
 	}
 	@Override
-	public String selectANotice(Model model, Integer id) {
-		model.addAttribute("notice", adminNoticeDao.selectANotice(id));
-		return "admin/noticeDetail";
+	public Notice selectANotice( Integer id) {
+		Notice notice=adminNoticeDao.selectANotice(id);
+		return notice;
+
 	}
 	@Override
-	public String deleteNotice(Integer id) {
-		adminNoticeDao.deleteNotice(id);
-		return "forward:/adminNotice/deleteNoticeSelect";
+	public int deleteNotice(Integer id) {
+	    int flag=adminNoticeDao.deleteNotice(id);
+		return flag;
 	}
 
 }

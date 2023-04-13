@@ -9,13 +9,14 @@ import demo.shopping.po.Goods;
 import java.util.List;
 
 public interface AdminGoodsService {
-	public String selectAGoods(Model model, Integer id, String act);
-	public String deleteGoods(Integer ids[], Model model);
-	public String deleteAGoods(Integer id, Model model);
-	public String addOrUpdateGoods(Goods goods, HttpServletRequest request, String updateAct);
+	public Goods selectAGoods( Integer id);
+	public int deleteGoods(Integer ids[]);
+	public int deleteAGoods(Integer id);
+	public int addGoods(Goods goods);
 	public List<Goods> selectGoods( Integer pageCur, String act);
 	public int CountInfo();
 	public int CountPage();
 	public List<GoodsType> getGoodsType();
-
+    public int updateGoods(Goods goods);
+    public String imagePath();
 }

@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 
 import demo.shopping.po.Goods;
 
+import java.util.List;
+
 public interface IndexService {
 	public String before(Model model,HttpSession session, Goods goods);
 	public String toRegister(Model model);
@@ -13,4 +15,5 @@ public interface IndexService {
 	public String goodsDetail(Model model,Integer id);
 	public String selectANotice(Model model,Integer id);
 	public String search(Model model,String mykey);
+    public List getAllGoodsType();
 }

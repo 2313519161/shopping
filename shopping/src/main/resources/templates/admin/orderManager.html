@@ -1,0 +1,55 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org ">
+<head>
+    <title th:text="#{admin.orderManager.page.title}"></title>
+    <link th:href="@{/css/admin/common.css}" type="text/css" rel="stylesheet">
+    <style type="text/css">
+        table{
+            text-align: center;
+            border-collapse: collapse
+        }
+        .bgcolor{
+            background-color: #F08080;
+        }
+    </style>
+    <script type="text/javascript">
+        function changeColor(obj){
+            obj.className="bgcolor";
+        }
+        function changeColor1(obj){
+            obj.className="";
+        }
+        function checkDel(id){
+            if(window.confirm("是否删除该订单？")){
+                window.location.href="/shopping/adminOrder/deleteorderManager?id="+id;
+            }
+        }
+    </script>
+</head>
+<body>
+<br>
+<table border="1" bordercolor="PaleGreen">
+    <tr>
+        <th width="150px" th:text="#{admin.orderManager.page.orderNumber}"></th>
+        <th width="150px" th:text="#{admin.orderManager.page.userEmail}"></th>
+        <th width="100px" th:text="#{admin.orderManager.page.orderAmount}"></th>
+        <th width="100px" th:text="#{admin.orderManager.page.orderStatus}"></th>
+        <th width="150px" th:text="#{admin.orderManager.page.orderDate}"></th>
+        <th width="100px" th:text="#{admin.orderManager.page.operate}"></th>
+    </tr>
+
+        <tr onmousemove="changeColor(this)" onmouseout="changeColor1(this)" th:each="n:${orderList}">
+            <td>[[${n.id}]]</td>
+            <td>[[${n.bemail}]]</td>
+            <td>[[${n.amount}]]</td>
+            <td th:if="${n.status==0}?#{admin.orderManager.page.yesPay}:#{admin.orderManager.page.noPay}"></td>
+            <td>[[${n.orderdate}]]</td>
+            <td>
+                    <a th:if="${n.status == 0}" th:href="'javaScript:checkDel('+${n.id}+')'" th:text="#{admin.orderManager.page.delete}"></a>
+
+            </td>
+        </tr>
+
+</table>
+</body>
+</html>

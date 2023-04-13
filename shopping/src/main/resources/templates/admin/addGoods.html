@@ -1,9 +1,7 @@
-
 <html xmlns:th="http://www.thymeleaf.org ">
 <head>
-
     <title th:text="#{admin.addGoods.page.title}"></title>
-    <link href="../css/admin/common.css" type="text/css" rel="stylesheet">
+    <link th:href="@{/css/admin/common.css}" type="text/css" rel="stylesheet">
 </head>
 <body>
 <form th:action="@{/admin/adminGoods/addGoods}" method="post" modelAttribute="goods" enctype="multipart/form-data">
@@ -41,22 +39,18 @@
                 <input type="file" name="logoImage"/>
             </td>
         </tr>
-
-
         <tr>
             <td th:text="#{admin.addGoods.page.type}"></td>
             <td>
-                <select >
-                    <option th:each="goodstype:${GoodsType}" th:text="${goodstype.typename}" ></option>
+                <select name="goodstype_id">
+                    <option th:each="goodstype:${GoodsType}" th:text="${goodstype.typename}"  th:value="${goodstype.id}"></option>
                 </select>
             </td>
         </tr>
-
-
         <tr>
             <td align="center">
-                <input type="submit" value="提交"/>
-            </td>
+            <input type="submit" value="提交"/>
+        </td>
             <td align="left">
                 <input type="reset" value="重置"/>
             </td>

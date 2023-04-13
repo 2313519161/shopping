@@ -56,7 +56,7 @@ public class UserController {
 	@RequestMapping("/showlogin")
 	public String Showlogin(){
 
-		return "before/login";
+		return "before/login1";
 	}
 	
 	@RequestMapping("/login")

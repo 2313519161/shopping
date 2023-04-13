@@ -1,0 +1,54 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org ">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title th:text="#{admin.goodsDetail.title}"></title>
+</head>
+<body>
+<table border=1 style="border-collapse: collapse">
+    <caption>
+        <font size=4 face=华文新魏 th:text="#{admin.goodsDetail.page.remind}"></font>
+    </caption>
+    <tr>
+        <td th:text="#{admin.goodsDetail.page.Name}"></td>
+        <td th:text="${goods.gname}">
+
+        </td>
+    </tr>
+    <tr>
+        <td th:text="#{admin.goodsDetail.page.Price}"></td>
+        <td th:text="${goods.goprice}">
+
+        </td>
+    </tr>
+    <tr>
+        <td th:text="#{admin.goodsDetail.page.disCountPrice}"></td>
+        <td th:text="${goods.grprice}">
+
+        </td>
+    </tr>
+    <tr>
+        <td th:text="#{admin.goodsDetail.page.Stock}"></td>
+        <td th:text="${goods.gstore}">
+
+        </td>
+    </tr>
+    <tr>
+        <td th:text="#{admin.goodsDetail.page.Picture}"></td>
+        <td>
+
+                <img alt="" width="250" height="250"
+                     th:src="@{'/logos/' + ${goods.gpicture}}"
+                     th:if="${goods.gpicture != '' }"/>
+
+        </td>
+    </tr>
+    <tr>
+        <td th:text="#{admin.goodsDetail.page.Type}"></td>
+        <td th:text="${goods.typename}">
+
+        </td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org ">
+<head>
+    <title th:text="#{admin.deleteNoticeSelect.page.title}"></title>
+    <link href="css/admin/common.css" type="text/css" rel="stylesheet">
+    <style type="text/css">
+        table{
+            text-align: center;
+            border-collapse: collapse;
+        }
+        .bgcolor{
+            background-color: #F08080;
+        }
+    </style>
+    <script type="text/javascript">
+        function changeColor(obj){
+            obj.className = "bgcolor";
+        }
+        function changeColor1(obj){
+            obj.className = "";
+        }
+    </script>
+    <script type="text/javascript">
+        function checkDel(id){
+            if(window.confirm("是否删除该公告？")){
+                window.location.href ="/shopping/adminNotice/deleteNotice?id="+id;
+            }
+        }
+    </script>
+</head>
+<body>
+<a th:if="${allNotices.size() == 0 }" th:text="#{admin.deleteNoticeSelect.page.remind}">
+
+</a>
+
+    <table border="1" bordercolor="PaleGreen" th:if="${allNotices.size() != 0 }">
+        <tr>
+            <th width="200px" th:text="#{admin.deleteNoticeSelect.page.ID}"></th>
+            <th width="200px" th:text="#{admin.deleteNoticeSelect.page.head}"></th>
+            <th width="200px" th:text="#{admin.deleteNoticeSelect.page.data}"></th>
+            <th width="100px" th:text="#{admin.deleteNoticeSelect.page.detail}"></th>
+            <th width="100px" th:text="#{admin.deleteNoticeSelect.page.operate}"></th>
+        </tr>
+
+            <tr onmousemove="changeColor(this)" onmouseout="changeColor1(this)" th:each="notice:${allNotices }">
+                <td th:text="${notice.id }"></td>
+                <td th:text="${notice.ntitle }"></td>
+                <td th:text="${notice.ntime }"></td>
+                <td><a  target="_blank" th:href="@{/adminNotice/selectANotice(id=${notice.id})}" th:text="#{admin.deleteNoticeSelect.page.detail}"></a></td>
+                <td>
+                    <a th:href="'javascript:checkDel('+${notice.id }+')'" th:text="#{admin.deleteNoticeSelect.page.delete}"></a>
+                </td>
+            </tr>
+
+    </table>
+
+</body>
+</html>

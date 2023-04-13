@@ -46,7 +46,8 @@ public class IndexServiceImpl implements IndexService{
 	@Override
 	public String toLogin(Model model) {
 		model.addAttribute("lbuser", new Buser());
-		return "before/login";
+		System.out.println("enter service");
+		return "before/login1";
 	}
 
 	@Override
@@ -69,5 +70,10 @@ public class IndexServiceImpl implements IndexService{
 		model.addAttribute("searchlist", list);
 		return "before/searchResult";
 	}
-	
+
+	@Override
+	public List getAllGoodsType() {
+		List list=indexDao.getGoodsType();
+		return list;
+	}
 }
