@@ -6,6 +6,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="demo.shopping.dao.AdminDao">
 	<!-- 查询用户信息 -->
 	<select id="login"  resultType="Auser" parameterType="Auser">
-		select * from ausertable where aname=#{aname} AND  apwd=#{apwd}
+		select * from ausertable
 	</select>
 </mapper>

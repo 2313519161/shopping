@@ -14,6 +14,14 @@ public class Buser {
 	@Pattern(regexp = "^(?=.*[a-zA-Z0-9].*)(?=.*[a-zA-Z.!@#$%^&*].*)(?=.*[0-9.!@#$%^&*].*).{6,32}$", message = "密码至少包含数字，字母和符号的两种")
 	private String bpwd;
 
+	public Buser() {
+	}
+
+	public Buser(@Email(message = "邮箱格式错误") String bemail, @Pattern(regexp = "^(?=.*[a-zA-Z0-9].*)(?=.*[a-zA-Z.!@#$%^&*].*)(?=.*[0-9.!@#$%^&*].*).{6,32}$", message = "密码至少包含数字，字母和符号的两种") String bpwd) {
+		this.bemail = bemail;
+		this.bpwd = bpwd;
+	}
+
 	public Integer getId() {
 		return id;
 	}

@@ -39,11 +39,9 @@ public class AdminTypeController extends BaseController{
 
 	@RequestMapping("/adminType")
 	public String deleteType(Integer id,Model model) {
-		System.out.println("Enter deleteType");
-		System.out.println(id);
 
         int flag=adminTypeService.deleteType(id);
-		System.out.println("Exit deleteType");
+
 		return "forward:/adminType/toDeleteType";
 	}
 	

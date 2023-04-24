@@ -27,16 +27,6 @@ public class AdminUserServiceImpl implements AdminUserService{
 	}
 	@Override
 	public int deleteuserManager(Integer id) {
-//		if(cartDao.selectCart(id).size() > 0 ||
-//				userCenterDao.myFocus(id).size() > 0||
-//				userCenterDao.myOrder(id).size() > 0) {
-//
-//			return "forward:/adminUser/userInfo";
-//		}
-//		if(adminUserDao.deleteuserManager(id) > 0)
-//			model.addAttribute("msg", "�ɹ�ɾ���û���");
-
-
 		int flag=adminUserDao.deleteuserManager(id);
 		return flag;
 	}

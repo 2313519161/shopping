@@ -51,7 +51,7 @@
                 </div>
                 <div class="top10List clearfix">
 
-                    <!--                    varStatus="status"有问题-->
+
                         <ul class="clearfix" th:each="sg,status:${focuslist }" varStatus="status">
                             <img class="iteration" th:src="@{'/images/before/top_'+${status.index+1}+'.gif'}"/>
 

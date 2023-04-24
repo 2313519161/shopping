@@ -25,7 +25,7 @@ public class AdminUserController extends BaseController{
 		int flag=adminUserService.deleteuserManager(id);
 		if (flag>0)
 		return "forward:/adminUser/userInfo";
-		return "删除失败,跳转到其他页面";
+		return "error/error";
 	}
 
 }

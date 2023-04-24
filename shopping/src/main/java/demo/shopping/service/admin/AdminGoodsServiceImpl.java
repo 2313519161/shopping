@@ -127,12 +127,6 @@ public class AdminGoodsServiceImpl implements AdminGoodsService{
 	public int deleteGoods(Integer[] ids) {
 		List<Integer> list = new ArrayList<Integer>();
 		for (int i = 0; i < ids.length; i++) {
-//			if(adminGoodsDao.selectCartGoods(ids[i]).size() > 0 ||
-//					adminGoodsDao.selectFocusGoods(ids[i]).size() > 0 ||
-//					adminGoodsDao.selectOrderdetailGoods(ids[i]).size() > 0) {
-//
-//				return "forward:/adminGoods/selectGoods?act=deleteSelect";
-//			}
 			list.add(ids[i]);
 		}
 		int flag;
@@ -144,12 +138,6 @@ public class AdminGoodsServiceImpl implements AdminGoodsService{
 
 	@Override
 	public int deleteAGoods(Integer id) {
-//		if(adminGoodsDao.selectCartGoods(id).size() > 0 ||
-//				adminGoodsDao.selectFocusGoods(id).size() > 0 ||
-//				adminGoodsDao.selectOrderdetailGoods(id).size() > 0) {
-//
-//			return "forward:/adminGoods/selectGoods?act=deleteSelect";
-//		}
 		int flag;
 		flag=adminGoodsDao.deleteAGoods(id);
 

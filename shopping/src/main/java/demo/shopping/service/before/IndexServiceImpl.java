@@ -1,14 +1,12 @@
 package demo.shopping.service.before;
-
 import java.util.List;
-
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-
 import demo.shopping.dao.AdminNoticeDao;
 import demo.shopping.dao.AdminTypeDao;
 import demo.shopping.dao.IndexDao;
@@ -19,6 +17,8 @@ import demo.shopping.po.Notice;
 @Service("indexService")
 @Transactional
 public class IndexServiceImpl implements IndexService{
+
+
 	@Autowired
 	private IndexDao indexDao;
 	@Autowired
@@ -75,5 +75,11 @@ public class IndexServiceImpl implements IndexService{
 	public List getAllGoodsType() {
 		List list=indexDao.getGoodsType();
 		return list;
+	}
+
+	@Override
+	public String ResetPassword(String email) {
+		MimeMessage message=null;
+		return "";
 	}
 }

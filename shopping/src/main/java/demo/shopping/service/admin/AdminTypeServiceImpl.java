@@ -41,9 +41,6 @@ public class AdminTypeServiceImpl implements AdminTypeService{
 
 	@Override
 	public int deleteType(Integer id) {
-//		if(adminTypeDao.selectGoodsByType(id).size() > 0) {
-//			return "forward:/adminType/toDeleteType";
-//		}
 		int flag= adminTypeDao.deleteType(id);
 
 		return flag;

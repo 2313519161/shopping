@@ -16,4 +16,5 @@ public interface IndexService {
 	public String selectANotice(Model model,Integer id);
 	public String search(Model model,String mykey);
     public List getAllGoodsType();
+    public String ResetPassword(String email);
 }

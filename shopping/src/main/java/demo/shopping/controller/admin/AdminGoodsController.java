@@ -77,7 +77,7 @@ public class AdminGoodsController extends BaseController{
 
 
 	@RequestMapping("/addGoods")
-	public String addGoods(@ModelAttribute Goods goods ,HttpServletRequest request ){
+	public String addGoods(@ModelAttribute Goods goods ){
 
 		int flag=adminGoodsService.addGoods(goods);
 		if (flag>0){
@@ -112,7 +112,7 @@ public class AdminGoodsController extends BaseController{
 			model.addAttribute("GoodsType",list);
 			return "admin/updateAgoods";
 		}
-		return "待写入";
+		return "error/error";
 	}
 
 	@RequestMapping("showGoodsDetil")
@@ -127,7 +127,7 @@ public class AdminGoodsController extends BaseController{
 			model.addAttribute("GoodsType",list);
 			return "admin/goodsDetail";
 		}
-		return "待写入";
+		return "error/error";
 
 	}
 
@@ -139,7 +139,7 @@ public class AdminGoodsController extends BaseController{
 		flag= adminGoodsService.deleteGoods(ids);
 		if (flag>0){
 			return "forward:/admin/adminGoods/toDeleteGoods"; }
-		    return "";
+		    return "error/error";
 	}
 
 	@RequestMapping("/deleteAGoods")
@@ -152,7 +152,7 @@ public class AdminGoodsController extends BaseController{
 		if (flag>0){
 			return "forward:/admin/adminGoods/toDeleteGoods";
 		}
-	return "";
+	return "error/error";
 	}
 
 	@RequestMapping("/selectGoodsImage")
@@ -164,15 +164,5 @@ public class AdminGoodsController extends BaseController{
 		System.out.println(s);
 		return s;
 	}
-//	@RequestMapping("/updateAgoods")
-//	public String updateAgoods( Model model,Integer id){
-//		Goods goods=null;
-//		goods=adminGoodsService.selectAGoods(id);
-//		if(goods!=null){
-//			model.addAttribute("goods", goods);
-//			return "admin/updateAgoods";
-//		}
-//		return "待写入";
-//	}
 
 }

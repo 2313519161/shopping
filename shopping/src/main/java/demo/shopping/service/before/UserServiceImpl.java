@@ -25,18 +25,17 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public int register(String BEmail,String  CunBPwd) throws Exception {
 
-	String	pwd=Bpwd(CunBPwd);
+	    String pwd=Bpwd(CunBPwd);
 
-		int n = userDao.register(BEmail,pwd);
+		int n = userDao.addUser(new Buser(BEmail,pwd));
 		return n;
 	}
-
 
 	public static String Bpwd(String pwd) throws Exception {
 
 		MessageDigest md5 = MessageDigest.getInstance("MD5");
 		byte[] bytes = md5.digest(pwd.getBytes());
-		//md5加密
+
 		String result = "";
 			for(byte b : bytes)
 		{
@@ -49,27 +48,29 @@ public class UserServiceImpl implements UserService{
 			result = result + temp;
 		}
 		//将byte【】转为16进制存储
-		System.out.println(result);
 		return result;
-
 	}
 
-
 	@Override
-	public Buser login(Buser buser, Model model, HttpSession session) throws Exception {
+	public Buser login(Buser buser) throws Exception {
 
 		Buser ruser = null;
 
-		//Buser.Bpwd加密然后赋值
 		buser.setBpwd(Bpwd(buser.getBpwd()));
+		List<Buser> list = userDao.searchAllUserInfo();
+		//通过dao层将所有user取出比较
 
-		List<Buser> list = userDao.login(buser);
-		if(list.size() > 0) {
-			ruser = list.get(0);
+		for (int i = 0; i <list.size() ; i++) {
+
+			if (ruser.getBemail().equals(list.get(i).getBemail()) && ruser.getBpwd().equals(list.get(i).getBpwd())
+			){
+				ruser = list.get(i);
+				return ruser;
+
+			}
 		}
 
-		return ruser;
-
+return null;
 	}
 
 }

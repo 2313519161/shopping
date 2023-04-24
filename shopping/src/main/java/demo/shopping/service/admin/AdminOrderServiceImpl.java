@@ -16,16 +16,15 @@ public class AdminOrderServiceImpl implements AdminOrderService{
 	@Autowired
 	private AdminOrderDao adminOrderDao;
 	@Override
-	public String orderInfo(Model model) {
+	public List<Map<String,Object>> orderInfo() {
 		List<Map<String,Object>> list = adminOrderDao.orderInfo();
-		model.addAttribute("orderList", list);
-		return "admin/orderManager";
+		return list;
 	}
 	@Override
-	public String deleteorderManager(Integer id) {
-		adminOrderDao.deleteOrderDetail(id);
-		adminOrderDao.deleteOrderBase(id);
-		return "forward:/adminOrder/orderInfo";
+	public int deleteorderManager(Integer id) {
+		int flag= adminOrderDao.deleteOrderDetail(id);
+		          adminOrderDao.deleteOrderBase(id);
+		return flag;
 	}
 
 }

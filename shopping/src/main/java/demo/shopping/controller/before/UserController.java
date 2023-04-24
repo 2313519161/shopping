@@ -41,8 +41,7 @@ public class UserController {
 
 			int n=userService.register(buser.getBemail(),buser.getBpwd());
 
-			MailUtil mailUtil=new MailUtil(buser.getBemail(),"123");
-			mailUtil.run();
+
 
 			if(n > 0) {
 				return "before/login";
@@ -61,7 +60,6 @@ public class UserController {
 	
 	@RequestMapping("/login")
 	public String login(@ModelAttribute Buser buser,Model model, HttpSession session, String code) throws Exception {
-		//验证码对比
 
 		if(!code.equalsIgnoreCase(session.getAttribute("code").toString())) {
 			model.addAttribute("msg", "验证码错误");
@@ -69,7 +67,7 @@ public class UserController {
 		}
 
         Buser buser1=null;
-       		buser1=userService.login(buser,model,session);
+       		buser1=userService.login(buser);
 
 
 		if(buser1 != null) {
@@ -77,7 +75,7 @@ public class UserController {
 			return "forward:/before";
 			}else {
 			model.addAttribute("msg", "用户不存在");
-			return "before/login";
+			return "before/login1";
 
 		}
 
