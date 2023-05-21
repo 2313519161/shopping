@@ -3,6 +3,8 @@ package demo.shopping.controller.before;
 import javax.servlet.http.HttpSession;
 
 import demo.shopping.util.MyUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import java.util.List;
 
 @Controller
 public class UserCenterController extends BaseBeforeController{
+	Log logger = LogFactory.getLog(UserCenterController.class);
 	@Autowired
 	private UserCenterService userCenterService;
 	@RequestMapping("/userCenter")
@@ -25,12 +28,14 @@ public class UserCenterController extends BaseBeforeController{
 		model.addAttribute("bruser",session.getAttribute("bruser"));
 		model.addAttribute("myOrder", list.get(0));
 		model.addAttribute("myFocus", list.get(1));
+		logger.info("前往用户中心，用户id为"+uid);
 		return "before/userCenter";
 	}
 	@RequestMapping("/orderDetail")
 	public String orderDetail(HttpSession session,Model model, Integer ordersn) {
 		model.addAttribute("bruser",session.getAttribute("bruser"));
 		model.addAttribute("myOrderDetail", userCenterService.orderDetail( ordersn));
+		logger.info("前往该用户选定的商品详情页面");
 		return "before/userOrderDetail";
 	}
 }
