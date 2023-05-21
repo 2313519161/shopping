@@ -21,17 +21,17 @@ public class AdminGoodsController extends BaseController{
 	private AdminGoodsService adminGoodsService;
 
 	@RequestMapping("/selectGoods")
-	public String selectGoods(Model model, Integer pageCur, String act){
+	public String selectGoods(Model model, Integer pageCur){
+		System.out.println("进入selectGoods");
 		if(pageCur==null)pageCur=1;
 		List<Goods> allGoods=null;
 		int totalCount=adminGoodsService.CountInfo();
 		int totalPage=adminGoodsService.CountPage();
-		allGoods=adminGoodsService.selectGoods(pageCur, act);
+		allGoods=adminGoodsService.selectGoods(pageCur);
 		model.addAttribute("allGoods", allGoods);
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("totalCount",totalCount);
 		model.addAttribute("pageCur", pageCur);
-
 			return "admin/selectGoods";
 
 	}
@@ -41,7 +41,7 @@ public class AdminGoodsController extends BaseController{
 		List<Goods> allGoods=null;
 		int totalCount=adminGoodsService.CountInfo();
 		int totalPage=adminGoodsService.CountPage();
-		allGoods=adminGoodsService.selectGoods(pageCur,null);
+		allGoods=adminGoodsService.selectGoods(pageCur);
 		model.addAttribute("allGoods", allGoods);
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("totalCount",totalCount);
@@ -55,7 +55,7 @@ public class AdminGoodsController extends BaseController{
 		List<Goods> allGoods=null;
 		int totalCount=adminGoodsService.CountInfo();
 		int totalPage=adminGoodsService.CountPage();
-		allGoods=adminGoodsService.selectGoods(pageCur,null);
+		allGoods=adminGoodsService.selectGoods(pageCur);
 		model.addAttribute("allGoods", allGoods);
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("totalCount",totalCount);
@@ -63,11 +63,6 @@ public class AdminGoodsController extends BaseController{
 		return "admin/updateSelectGoods";
 
 	}
-
-
-
-
-
 	@RequestMapping("/toAddGoods")
 	public String toAddGoods(Model model){
 		List<GoodsType> list=adminGoodsService.getGoodsType();
@@ -75,28 +70,24 @@ public class AdminGoodsController extends BaseController{
 		return "admin/addGoods";
 	}
 
-
 	@RequestMapping("/addGoods")
 	public String addGoods(@ModelAttribute Goods goods ){
-
 		int flag=adminGoodsService.addGoods(goods);
 		if (flag>0){
 			return "forward:/admin/adminGoods/selectGoods";
 		}
-		return "";
+		return "error/error";
 	}
-
-
 
 	//进行更新操作
 	@RequestMapping("/updateGoods")
 	public String updateGoods(@ModelAttribute Goods goods){
-		System.out.println(goods.getId());
+
 		int flag=adminGoodsService.updateGoods(goods);
 		if (flag>0){
 			return "forward:/admin/adminGoods/selectGoods";
 		}
-		return "";
+		return "error/error";
 	}
 
 	//在更新页面查找一个商品,以及商品类型
@@ -131,7 +122,6 @@ public class AdminGoodsController extends BaseController{
 
 	}
 
-
 	@RequestMapping("/deleteGoods")
 	public String deleteGoods(Integer ids[], Model model){
 		//删除一堆商品
@@ -145,24 +135,12 @@ public class AdminGoodsController extends BaseController{
 	@RequestMapping("/deleteAGoods")
 	public String deleteAGoods(Integer id) {
 		//删除一个商品
-
 		int flag;
 		flag= adminGoodsService.deleteAGoods(id);
-
 		if (flag>0){
 			return "forward:/admin/adminGoods/toDeleteGoods";
 		}
 	return "error/error";
-	}
-
-	@RequestMapping("/selectGoodsImage")
-	public String selectGoodsImage(int id){
-
-		String s="logos/";
-
-		s+=adminGoodsService.selectAGoods(id).getGpicture();
-		System.out.println(s);
-		return s;
 	}
 
 }

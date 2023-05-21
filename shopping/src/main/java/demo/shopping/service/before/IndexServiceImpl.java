@@ -1,7 +1,10 @@
 package demo.shopping.service.before;
 import java.util.List;
+import java.util.Map;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
+
+import demo.shopping.po.GoodsType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -17,58 +20,56 @@ import demo.shopping.po.Notice;
 @Service("indexService")
 @Transactional
 public class IndexServiceImpl implements IndexService{
-
-
 	@Autowired
 	private IndexDao indexDao;
 	@Autowired
 	private AdminTypeDao adminTypeDao;
 	@Autowired
 	private AdminNoticeDao adminNoticeDao;
+
 	@Override
-	public String before(Model model, HttpSession session, Goods goods) {
-		session.setAttribute("goodsType", adminTypeDao.selectGoodsType());
-		model.addAttribute("salelist", indexDao.getSaleOrder());
-		model.addAttribute("focuslist", indexDao.getFocusOrder());
-		model.addAttribute("noticelist", indexDao.selectNotice());
-		if(goods.getId() == null) 
+	public List<Map<String, Object>> selectNotice() {
+		List<Map<String, Object>> list = indexDao.selectNotice();
+		return list;
+	}
+
+	@Override
+	public List<Map<String, Object>> getFocusOrder() {
+		List<Map<String, Object>> list=indexDao.getFocusOrder();
+
+		return list;
+	}
+
+	@Override
+	public List<Map<String, Object>> getLastedGoods(Goods goods) {
+		if(goods.getId() == null)
 			goods.setId(0);
-		model.addAttribute("lastedlist", indexDao.getLastedGoods(goods));
-		return "before/index";
+		List<Map<String, Object>> list =indexDao.getLastedGoods(goods);
+		return list;
 	}
 
 	@Override
-	public String toRegister(Model model) {
-		model.addAttribute("rbuser", new Buser());
-		return "before/register";
+	public List<Map<String, Object>> getSaleOrder() {
+		List<Map<String, Object>> list=indexDao.getSaleOrder();
+		return list;
 	}
 
 	@Override
-	public String toLogin(Model model) {
-		model.addAttribute("lbuser", new Buser());
-		System.out.println("enter service");
-		return "before/login1";
+	public Goods goodsDetail( Integer id) {
+
+		return indexDao.selectGoodsById(id);
 	}
 
 	@Override
-	public String goodsDetail(Model model, Integer id) {
-		Goods goods = indexDao.selectGoodsById(id);
-		model.addAttribute("goods", goods);
-		return "before/goodsdetail";
-	}
-
-	@Override
-	public String selectANotice(Model model, Integer id) {
+	public Notice selectANotice( Integer id) {
 		Notice notice = adminNoticeDao.selectANotice(id);
-		model.addAttribute("notice", notice);
-		return "admin/noticeDetail";
+	return adminNoticeDao.selectANotice(id);
 	}
 
 	@Override
-	public String search(Model model, String mykey) {
-		List<Goods> list = indexDao.search(mykey);
-		model.addAttribute("searchlist", list);
-		return "before/searchResult";
+	public List<Goods>  search( String mykey) {
+
+		return indexDao.search(mykey);
 	}
 
 	@Override
@@ -77,9 +78,5 @@ public class IndexServiceImpl implements IndexService{
 		return list;
 	}
 
-	@Override
-	public String ResetPassword(String email) {
-		MimeMessage message=null;
-		return "";
-	}
+
 }

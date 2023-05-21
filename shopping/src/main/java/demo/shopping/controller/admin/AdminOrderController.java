@@ -26,10 +26,9 @@ public class AdminOrderController extends BaseController{
 	@RequestMapping("/deleteorderManager")
 	public String deleteorderManager(Integer id) {
 		int flag= adminOrderService.deleteorderManager(id);
-if (flag>0){
+
 	return "forward:/adminOrder/orderInfo";
-}
-return "error/error";
+
 
 	}
 }

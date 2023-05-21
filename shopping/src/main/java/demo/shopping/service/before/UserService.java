@@ -9,7 +9,7 @@ import demo.shopping.po.Buser;
 import java.security.NoSuchAlgorithmException;
 
 public interface UserService {
-	public int register(String BEmail,String ZhenBPwd ) throws Exception;
+	public int register(Buser buser ) throws Exception;
 
 	public Buser login(Buser buser) throws Exception;
 }

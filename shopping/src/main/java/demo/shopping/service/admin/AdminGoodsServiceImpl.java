@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Service("adminGoodsService")
 @Transactional
-public class AdminGoodsServiceImpl implements AdminGoodsService{
+public class AdminGoodsServiceImpl implements AdminGoodsService {
 	@Autowired
 	private AdminGoodsDao adminGoodsDao;
 	@Autowired
@@ -31,41 +31,41 @@ public class AdminGoodsServiceImpl implements AdminGoodsService{
 
 	@Override
 	public int addGoods(Goods goods) {
-		String newFileName ="";
+		String newFileName = "";
 		String fileName = goods.getLogoImage().getOriginalFilename();
-		if(fileName.length() > 0){
-			String realpath = appSettings.getLogoPath();
-			String fileType = fileName.substring(fileName.lastIndexOf('.'));
-			newFileName = MyUtil.getStringID() + fileType;
-			goods.setGpicture(newFileName);
-			File targetFile = new File(realpath, newFileName); 
-			if(!targetFile.exists()){
-	            targetFile.mkdirs();
-	        }
-	        try {
-	        	goods.getLogoImage().transferTo(targetFile);
-	        } catch (Exception e) {  
-	            e.printStackTrace();  
-	        }
-		}
-		  int flag;
-
-			  flag=adminGoodsDao.addGoods(goods) ;
-				return flag;
-	}
-
-	@Override
-
-	public int updateGoods(Goods goods) {
-		String newFileName ="";
-		String fileName = goods.getLogoImage().getOriginalFilename();
-		if(fileName.length() > 0){
+		if (fileName.length() > 0) {
 			String realpath = appSettings.getLogoPath();
 			String fileType = fileName.substring(fileName.lastIndexOf('.'));
 			newFileName = MyUtil.getStringID() + fileType;
 			goods.setGpicture(newFileName);
 			File targetFile = new File(realpath, newFileName);
-			if(!targetFile.exists()){
+			if (!targetFile.exists()) {
+				targetFile.mkdirs();
+			}
+			try {
+				goods.getLogoImage().transferTo(targetFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		int flag;
+
+		flag = adminGoodsDao.addGoods(goods);
+		return flag;
+	}
+
+	@Override
+
+	public int updateGoods(Goods goods) {
+		String newFileName = "";
+		String fileName = goods.getLogoImage().getOriginalFilename();
+		if (fileName.length() > 0) {
+			String realpath = appSettings.getLogoPath();
+			String fileType = fileName.substring(fileName.lastIndexOf('.'));
+			newFileName = MyUtil.getStringID() + fileType;
+			goods.setGpicture(newFileName);
+			File targetFile = new File(realpath, newFileName);
+			if (!targetFile.exists()) {
 				targetFile.mkdirs();
 			}
 			try {
@@ -75,8 +75,8 @@ public class AdminGoodsServiceImpl implements AdminGoodsService{
 			}
 		}
 
-	adminGoodsDao.updateGoodsById(goods) ;
-	return 1;
+		adminGoodsDao.updateGoodsById(goods);
+		return 1;
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class AdminGoodsServiceImpl implements AdminGoodsService{
 		//统计有多少页数据
 		List<Goods> allGoods = adminGoodsDao.selectGoods();
 
-		return (int)Math.ceil(allGoods.size()/5.0);
+		return (int) Math.ceil(allGoods.size() / 5.0);
 	}
 
 	@Override
@@ -98,24 +98,24 @@ public class AdminGoodsServiceImpl implements AdminGoodsService{
 	@Override
 	public List<GoodsType> getGoodsType() {
 		//查找所有的商品类型
-		List<GoodsType> list=adminGoodsDao.getAllGoodsType();
+		List<GoodsType> list = adminGoodsDao.getAllGoodsType();
 
 		return list;
 	}
 
 	@Override
-	public List<Goods> selectGoods( Integer pageCur, String act) {
+	public List<Goods> selectGoods(Integer pageCur) {
 		//一次就查询五条数据
 
-	if (pageCur==null)pageCur=0;
-		List<Goods> allGoods = adminGoodsDao.selectAllGoodsByPage((pageCur-1)*5,5);
+		if (pageCur == null) pageCur = 0;
+		List<Goods> allGoods = adminGoodsDao.selectAllGoodsByPage((pageCur - 1) * 5, 5);
 
 		return allGoods;
 
 	}
 
 	@Override
-	public Goods selectAGoods( Integer id) {
+	public Goods selectAGoods(Integer id) {
 
 		Goods agoods = adminGoodsDao.selectGoodsById(id);
 
@@ -130,7 +130,7 @@ public class AdminGoodsServiceImpl implements AdminGoodsService{
 			list.add(ids[i]);
 		}
 		int flag;
-		flag= adminGoodsDao.deleteGoods(list);
+		flag = adminGoodsDao.deleteGoods(list);
 
 		return flag;
 
@@ -139,14 +139,11 @@ public class AdminGoodsServiceImpl implements AdminGoodsService{
 	@Override
 	public int deleteAGoods(Integer id) {
 		int flag;
-		flag=adminGoodsDao.deleteAGoods(id);
+		flag = adminGoodsDao.deleteAGoods(id);
 
-	   return flag;
+		return flag;
 
-	}
-
-	@Override
-	public String imagePath() {
-		return appSettings.getLogoPath();
 	}
 }
+
+

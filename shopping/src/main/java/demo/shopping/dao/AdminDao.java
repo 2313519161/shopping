@@ -9,5 +9,5 @@ import demo.shopping.po.Auser;
 @Repository("adminDao")
 @Mapper
 public interface AdminDao {
-	public List<Auser> login();
+	public List<Auser> getAllAdmin();
 }

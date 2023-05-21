@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import demo.shopping.po.Buser;
 public class MyUtil {
+
 	public static String getStringID(){
 		String id=null;
 		Date date=new Date();

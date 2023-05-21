@@ -15,7 +15,7 @@ public class MyExceptionHandler implements HandlerExceptionResolver {
 	@Override
 	public ModelAndView resolveException(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2,
 			Exception arg3) {
-	   	Map<String, Object> model = new HashMap<String, Object>();  
+	   	Map<String, Object> model = new HashMap<String, Object>();
         model.put("ex", arg3);
 
     	if(arg3 instanceof AdminLoginNoException){
@@ -26,8 +26,8 @@ public class MyExceptionHandler implements HandlerExceptionResolver {
         	arg0.setAttribute("buser", new Buser());
         	arg0.setAttribute("msg", "û�е�¼�����¼��");
         	return new ModelAndView("/before/login", model);
-    	}else{  
+    	}else{
         	return new ModelAndView("/error", model);
-        }  
+        }
 	}
 }

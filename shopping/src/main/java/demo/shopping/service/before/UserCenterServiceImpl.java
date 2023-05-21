@@ -10,21 +10,28 @@ import org.springframework.ui.Model;
 import demo.shopping.dao.UserCenterDao;
 import demo.shopping.util.MyUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 @Service("userCenterService")
 @Transactional
 public class UserCenterServiceImpl implements UserCenterService{
 	@Autowired
 	private UserCenterDao userCenterDao;
+
 	@Override
-	public String userCenter(HttpSession session, Model model) {
-		model.addAttribute("myOrder", userCenterDao.myOrder(MyUtil.getUserId(session)));
-		model.addAttribute("myFocus", userCenterDao.myFocus(MyUtil.getUserId(session)));
-		return "before/userCenter";
+	public List<Object> userCenter(Integer uid) {
+		List<Object>list=new ArrayList<>();
+		list.add(0,userCenterDao.myOrder(uid));
+		list.add(1,userCenterDao.myFocus(uid));
+		return list;
 	}
+
 	@Override
-	public String orderDetail(Model model, Integer ordersn) {
-		model.addAttribute("myOrderDetail", userCenterDao.orderDetail(ordersn));
-		return "before/userOrderDetail";
+	public List<Map<String,Object>> orderDetail(Integer ordersn) {
+		List<Map<String,Object>> list=userCenterDao.orderDetail(ordersn);
+		return list;
 	}
 
 }

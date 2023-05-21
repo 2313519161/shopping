@@ -42,7 +42,6 @@ public class AdminNoticeController extends BaseController{
 
 	@RequestMapping("/deleteNotice")
 	public String deleteNotice(Integer id) {
-
         int flag=adminNoticeService.deleteNotice(id);
 		return "forward:/adminNotice/deleteNoticeSelect";
 	}

@@ -29,20 +29,18 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public Auser login(Auser auser) {
-
-List<Auser> ausers=adminDao.login();
+	public Auser getAllAdmin(Auser auser) {
+		//只从数据库中获取全部的admin信息，在service中进行比较
+       List<Auser> ausers=adminDao.getAllAdmin();
 
 		for (int i = 0; i <ausers.size() ; i++) {
-			if (auser.getAname().equals(ausers.get(i).getAname()) && auser.getApwd().equals(ausers.get(i).getApwd())){
-
+			if (auser.getAname().equals(ausers.get(i).getAname()) &&
+				auser.getApwd().equals(ausers.get(i).getApwd())){
 				Auser auser1=ausers.get(i);
 				return auser1 ;
 			}
 		}
 			return null;
-
-
 
 	}
 

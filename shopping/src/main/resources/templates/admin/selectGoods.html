@@ -24,7 +24,6 @@
 </head>
 <body>
 <div th:if ="${allGoods.size()==0}" th:text="#{admin.selectGoods.page.remind}">
-
 </div>
 <div th:if ="${allGoods.size()!=0}">
     <table border="1" bordercolor="PaleGreen">
@@ -46,18 +45,15 @@
                        th:text="#{admin.selectGoods.page.xiangqing}"
                 ></a></td>
             </tr>
-
         <tr>
-            <td colspan="5" align="right">
+             <td colspan="5" align="right">
              <span th:text="#{admin.selectGoods.page.info(${totalCount},${totalPage},${pageCur})}"></span>
 
                 <a th:href="@{/admin/adminGoods/selectGoods(pageCur=${pageCur-1})}"
                    th:if="${pageCur!=1}"
                    th:text="#{admin.selectGoods.page.BeforePage}"
                 ></a>
-
                 </a>
-
                 <a th:href="@{/admin/adminGoods/selectGoods(pageCur=${pageCur+1})}"
                    th:if ="${pageCur != totalPage && totalPage != 0}"
                    th:text="#{admin.selectGoods.page.NextPage}">

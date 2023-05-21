@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from busertable
 	</select>
 
-	<insert id="addUser" parameterType="Buser">
-		insert into busertable (id, bemail, bpwd) values (null, ${buser.bemail}, #{buser.bpwd})
+	<insert id="register" parameterType="Buser">
+		insert into busertable (id, bemail, bpwd) values (null, #{bemail}, #{bpwd})
 	</insert>
 </mapper>

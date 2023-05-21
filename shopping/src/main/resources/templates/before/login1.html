@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{login.page.title}"></title>
-    <link href="../css/before/daohang.css" rel="stylesheet" type="text/css" />
-    <link href="../css/before/common.css" rel="stylesheet" type="text/css" />
-    <link href="../css/before/style.css" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/before/daohang.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/before/common.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/before/style.css}" rel="stylesheet" type="text/css" />
     <style type="text/css">
         table{
           margin: 0 auto;
@@ -27,7 +27,7 @@
         }
         //刷新验证码
         function refreshCode(){
-            document.getElementById("code").src = "../validateCode?" + Math.random();
+            document.getElementById("code").src = "/shopping/validateCode?" + Math.random();
 
         }
 
@@ -35,17 +35,12 @@
     <title th:text="#{login.page.title}"></title>
 </head>
 <body>
-<!--<div id="content">-->
-<!--    <iframe  width="1268px" height="150px"   name="center" frameborder="0" th:src="@{/showHeadPage}"></iframe>-->
-
-<!--</div>-->
-<div style="text-align: center">
-
-<!--使用modelAttribute与user直接绑定-->
-    <form th:action="@{/user/login}" method="post" modelAttribute="buser"  name = "loginform">
+<div th:replace="before/head"></div>
+<div  style="text-align: center">
+    <form th:action="@{/user/login}" method="post" modelAttribute="buser"  name = "loginform" style="margin-left: 471px">
         <table>
             <tr>
-                <td colspan="2"><img src="images/admin/login.gif"></td>
+                <td colspan="2"><img th:src="@{/images/admin/login.gif}"></td>
             </tr>
             <tr>
                 <td th:text="#{login.page.youxiang}"></td>
@@ -61,17 +56,17 @@
             </tr>
             <tr>
                 <td>
-                    <img id="code" src="validateCode"/>
+                    <img id="code" th:src="@{/validateCode}"/>
                 </td>
                 <td class="ared">
-                    <a href="javascript:refreshCode();"><font color="blue" th:text="#{login.page.huanyan}"></font></a>
+                    <a th:href="'javascript:refreshCode()'"><font color="blue" th:text="#{login.page.huanyan}"></font></a>
 
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <input type="image" src="images/admin/ok.gif" onclick="gogo()">
-                    <input type="image" src="images/admin/cancel.gif" onclick="cancel()">
+                    <input type="image" th:src="@{/images/admin/ok.gif}" onclick="gogo()">
+                    <input type="image" th:src="@{/images/admin/cancel.gif}" onclick="cancel()">
                 </td>
             </tr>
             <tr id="msg">
@@ -82,5 +77,6 @@
 
 </div>
 </body>
+
 
 </html>

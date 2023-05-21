@@ -23,11 +23,10 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserDao userDao;
 	@Override
-	public int register(String BEmail,String  CunBPwd) throws Exception {
+	public int register(Buser buser) throws Exception {
 
-	    String pwd=Bpwd(CunBPwd);
-
-		int n = userDao.addUser(new Buser(BEmail,pwd));
+		buser.setBpwd(Bpwd(buser.getBpwd()));
+		int n = userDao.register(new Buser(buser.getBemail(),buser.getBpwd()));
 		return n;
 	}
 
@@ -47,7 +46,7 @@ public class UserServiceImpl implements UserService{
 			}
 			result = result + temp;
 		}
-		//将byte【】转为16进制存储
+
 		return result;
 	}
 
@@ -57,20 +56,18 @@ public class UserServiceImpl implements UserService{
 		Buser ruser = null;
 
 		buser.setBpwd(Bpwd(buser.getBpwd()));
+
 		List<Buser> list = userDao.searchAllUserInfo();
-		//通过dao层将所有user取出比较
 
-		for (int i = 0; i <list.size() ; i++) {
+		for (int i = 0; i <list.size() ; i++){
 
-			if (ruser.getBemail().equals(list.get(i).getBemail()) && ruser.getBpwd().equals(list.get(i).getBpwd())
-			){
-				ruser = list.get(i);
+	if (buser.getBemail().equals(list.get(i).getBemail()) && buser.getBpwd().equals(list.get(i).getBpwd())){
+
+		ruser = list.get(i);
 				return ruser;
-
 			}
 		}
-
-return null;
+		return null;
 	}
 
 }

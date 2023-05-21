@@ -9,10 +9,11 @@ import demo.shopping.exception.AdminLoginNoException;
 @Controller
 public class BaseController {
 
-	@ModelAttribute  
-    public void isLogin(HttpSession session, HttpServletRequest request) throws AdminLoginNoException {      
-       if(session.getAttribute("auser") == null){  
-            throw new AdminLoginNoException("û�е�¼");
-       }  
-    } 
+//	@ModelAttribute
+//    public void isLogin(HttpSession session, HttpServletRequest request) throws AdminLoginNoException {
+//       if(session.getAttribute("auser") == null){
+//            throw new AdminLoginNoException("û�е�¼");
+//       }
+//    }
+
 }

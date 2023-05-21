@@ -1,6 +1,7 @@
 package demo.shopping.controller.before;
 import javax.servlet.http.HttpSession;
 
+import demo.shopping.po.Buser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,55 +20,45 @@ public class IndexController {
 	private IndexService indexService;
 
 	@RequestMapping("/before")
-	public String before(Model model,HttpSession session, Goods goods) {
-		return indexService.before(model, session, goods);
-	}
-
-	@RequestMapping("/showHeadPage")
-	public String showHeadPage(Model model){
-     //发送全部的商品类型
-
-		List list=indexService.getAllGoodsType();
-        model.addAttribute("goodsType",list);
-         return "before/head";
+	public String before(Model model, Goods goods,HttpSession session) {
+		model.addAttribute("goodsType",indexService.getAllGoodsType());
+		model.addAttribute("salelist", indexService.getSaleOrder());
+		model.addAttribute("focuslist", indexService.getFocusOrder());
+		model.addAttribute("noticelist",indexService.selectNotice());
+		model.addAttribute("lastedlist", indexService.getLastedGoods(goods));
+		model.addAttribute("bruser",session.getAttribute("bruser"));
+		return "before/index";
 	}
 
 	@RequestMapping("/toRegister")
 	public String toRegister(Model model) {
-		return indexService.toRegister(model);
+		model.addAttribute("rbuser", new Buser());
+		return "before/register";
 	}
 
 	@RequestMapping("/toLogin")
 	public String toLogin(Model model) {
-		System.out.println("enter toLogin");
-		return indexService.toLogin(model);
+		model.addAttribute("lbuser", new Buser());
+		return "before/login1";
 	}
 
 	@RequestMapping("/goodsDetail")
-	public String goodsDetail(Model model,Integer id) {
-		return indexService.goodsDetail(model, id);
+	public String goodsDetail(Model model,Integer id ,HttpSession session) {
+		model.addAttribute("bruser",session.getAttribute("bruser"));
+		model.addAttribute("goods", indexService.goodsDetail(id));
+		return "before/goodsdetail";
 	}
 
 	@RequestMapping("/selectANotice")
 	public String selectANotice(Model model,Integer id) {
-		return indexService.selectANotice(model, id);
+		model.addAttribute("notice", indexService.selectANotice( id));
+		return "admin/noticeDetail";
 	}
 
 	@RequestMapping("/search")
-	public String search(Model model,String mykey) {
-		return indexService.search(model, mykey);
-	}
-
-	@GetMapping("/reset_password")
-	public String ToReset_Password(){
-
-		return "before/reset_password";
-	}
-
-	@PostMapping("/reset_password")
-	public DeferredResult<String> DoReset_Password(){
-		DeferredResult<String> result=new DeferredResult<>();
-		result.setResult("before/email_sent");
-		return result;
+	public String search(Model model,HttpSession session,String mykey) {
+		model.addAttribute("bruser",session.getAttribute("bruser"));
+		model.addAttribute("searchlist", indexService.search(mykey));
+		return "before/searchResult";
 	}
 }

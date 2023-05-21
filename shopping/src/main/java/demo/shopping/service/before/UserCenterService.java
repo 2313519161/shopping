@@ -4,7 +4,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
 
+import java.util.List;
+import java.util.Map;
+
 public interface UserCenterService {
-	public String userCenter(HttpSession session, Model model);
-	public String orderDetail(Model model, Integer ordersn);
+	public List<Object> userCenter(Integer uid);
+	public List<Map<String,Object>> orderDetail(Integer ordersn);
 }

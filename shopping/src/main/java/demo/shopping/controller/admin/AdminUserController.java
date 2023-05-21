@@ -1,5 +1,4 @@
 package demo.shopping.controller.admin;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +22,8 @@ public class AdminUserController extends BaseController{
 	@RequestMapping("/deleteuserManager")
 	public String deleteuserManager(Integer id) {
 		int flag=adminUserService.deleteuserManager(id);
-		if (flag>0)
 		return "forward:/adminUser/userInfo";
-		return "error/error";
+
 	}
 
 }

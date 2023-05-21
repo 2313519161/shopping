@@ -129,17 +129,13 @@
                 <li><a th:href="@{/adminNotice/deleteNoticeSelect}" target="center" th:text="#{admin.main.page.NoticeManage.deleteNoticeSelect}"></a></li>
             </ul>
         </li>
-        <li><a href="login" th:text="#{admin.main.page.exit}"></a></li>
+        <li><a th:href="@{/exit}" th:text="#{admin.main.page.exit}"></a></li>
     </ul>
-
 </div>
 <div id="content">
-    <iframe   name="center" frameborder="0" th:src="@{/admin/adminGoods/selectGoods}"></iframe>
+    <iframe name="center" frameborder="0" th:src="@{/admin/adminGoods/selectGoods}"></iframe>
 </div>
-
 <div id="footer" th:text="#{admin.main.page.puhlish}"></div>
 </body>
 </html>
 </html>
-
-

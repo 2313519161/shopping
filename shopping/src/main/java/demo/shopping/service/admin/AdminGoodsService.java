@@ -13,10 +13,10 @@ public interface AdminGoodsService {
 	public int deleteGoods(Integer ids[]);
 	public int deleteAGoods(Integer id);
 	public int addGoods(Goods goods);
-	public List<Goods> selectGoods( Integer pageCur, String act);
+	public List<Goods> selectGoods( Integer pageCur);
 	public int CountInfo();
 	public int CountPage();
 	public List<GoodsType> getGoodsType();
     public int updateGoods(Goods goods);
-    public String imagePath();
+
 }

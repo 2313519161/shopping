@@ -51,6 +51,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and gt.gname like concat('%',#{mykey},'%')
 	</select>
 	<select id="getGoodsType" resultType="GoodsType">
-        select typename from goodstype
+        select * from goodstype
     </select>
 </mapper>

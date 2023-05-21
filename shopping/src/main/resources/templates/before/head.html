@@ -21,11 +21,8 @@
             <table border="0" cellspacing="0" cellpadding="0" class="main_login">
                 <tr>
                     <td>
-                        <p id="content">
-
-
-                             <span th:if="${bruser!=null}" th:text="#{user.head.page.welcome( ${bruser.bemail })}"></span>
-                            <span th:if="${bruser==null}"><a th:href="@{/toLogin}" th:text="#{user.head.page.login}" target="centers"></a></span>
+                        <p id="content" th:text="${bruser} ? #{user.head.page.welcome( ${bruser.bemail })} : _">
+                            <a th:href="@{/toLogin}" th:text="#{user.head.page.login}" target="centers"></a>
                         </p>
                     </td>
                     <td>
@@ -36,9 +33,8 @@
                     <td><span class="xx">|</span><a th:href="@{/userCenter}" th:text="#{user.head.page.userCenter}" target="centers"></a></td>
                     <!-- 没有登录 -->
 
-                        <td th:if="${bruser!= null}"><a th:href="@{/user/exit}" th:text="#{user.head.page.exit}" target="centers"></a><span
-                                class="xx">|</span></td>
-
+                        <td th:if="${bruser!= null}"><a th:href="@{/user/exit}" th:text="#{user.head.page.exit}" target="centers"></a>
+                            <span class="xx">|</span></td>
                 </tr>
             </table>
         </div>
@@ -51,7 +47,7 @@
         </div>
         <div class="back_search">
             <div class="back_search_red">
-                <form action="search" name="myForm" method="post">
+                <form th:action="@{/search}" name="myForm" method="post">
                     <div class="div2">
                         <input type="text" name="mykey" class="txt" th:placeholder="#{user.head.page.search}"  />
                     </div>
@@ -69,16 +65,15 @@
             <div class="all_zong">
                 <div class="front_daohang">
                     <ul>
-                        <li class="backbj"><a href="before?id=0" th:text="#{user.head.page.title}"></a></li>
+                        <li class="backbj"><a th:href="@{/before(id=0)}" th:text="#{user.head.page.title}"></a></li>
                         <!-- 显示商品类型 -->
 
-                            <li th:each="g:${goodsType}"><a href="before?id=${g.id}" th:text=" ${g.typename }">
-                               </a>
+                            <li th:each="g:${goodsType}"><a th:href="@{/before(id=${g.id})}" th:text="${g.typename}"></a>
                             </li>
 
                         <li class="buy">
                             <p class="car">
-                                <a href="cart/selectCart" th:text="#{user.head.page.cart}"></a>
+                                <a th:href="@{/cart/selectCart}" th:text="#{user.head.page.cart}"></a>
                             </p>
                         </li>
                     </ul>
@@ -89,10 +84,6 @@
     <!--红色 导航 end-->
 </div>
 
-<!--<div>-->
-<!--用replace或者insert代替iframe-->
-<!--    <iframe  width="1268px" height="650px"   name="centers" frameborder="0" th:src="@{/before}"></iframe>-->
-<!--</div>-->
 
 </body>
 </html>

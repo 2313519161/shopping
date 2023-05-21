@@ -11,7 +11,7 @@ import demo.shopping.po.Auser;
 import java.util.List;
 
 public interface AdminService {
-	public Auser login(Auser auser);
+	public Auser getAllAdmin(Auser auser);
 
 	public List<GoodsType> selectGoodsType();
 }

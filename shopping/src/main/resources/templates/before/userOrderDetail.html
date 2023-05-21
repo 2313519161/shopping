@@ -1,0 +1,49 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org ">
+<head>
+    <title th:text="#{user.userOrderDetail.title}"></title>
+    <link th:href="@{/css/before/daohang.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/before/common.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/before/style.css}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div th:replace="before/head"></div>
+<div class="blank"></div>
+<div class="block clearfix">
+    <div class="location ared" th:text="#{user.userOrderDetail.title}">
+
+    </div>
+    <div class="blank"></div>
+    <div>
+        <div class="nFlowBox">
+            <table width="99%" align="center" border="0" cellpadding="5"
+                   cellspacing="1" bgcolor="#dddddd">
+                <tr>
+                    <th th:text="#{user.userOrderDetail.id}"></th>
+                    <th th:text="#{user.userOrderDetail.name}"></th>
+                    <th th:text="#{user.userOrderDetail.picture}"></th>
+                    <th th:text="#{user.userOrderDetail.price}"></th>
+                    <th th:text="#{user.userOrderDetail.number}"></th>
+                </tr>
+                <tr>
+                    <td colspan="5" height="15px"
+                        style="border: 0 none; background: #FFF"></td>
+                </tr>
+
+                    <tr th:each="mf:${myOrderDetail}">
+                        <td bgcolor="#ffffff" align="center" th:text="${mf.id}"></td>
+                        <td bgcolor="#ffffff"  align="center"  th:text="${mf.gname}"></td>
+                        <td align="center" bgcolor="#ffffff" height="60px"> <img
+                                style="width: 50px; height: 50px;"
+                                th:src="@{'/logos/'+${mf.gpicture}}" border="0"
+                                th:title="${mf.gname}" /> </td>
+                        <td align="center" bgcolor="#ffffff"  th:text="#{user.userOrderDetail.prices(${mf.grprice})}"></td>
+                        <td align="center" bgcolor="#ffffff"  th:text="${mf.shoppingnum}"></td>
+                    </tr>
+
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

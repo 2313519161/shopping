@@ -2,19 +2,24 @@ package demo.shopping.service.before;
 
 import javax.servlet.http.HttpSession;
 
+import demo.shopping.po.GoodsType;
+import demo.shopping.po.Notice;
 import org.springframework.ui.Model;
 
 import demo.shopping.po.Goods;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IndexService {
-	public String before(Model model,HttpSession session, Goods goods);
-	public String toRegister(Model model);
-	public String toLogin(Model model);
-	public String goodsDetail(Model model,Integer id);
-	public String selectANotice(Model model,Integer id);
-	public String search(Model model,String mykey);
+
+	public Goods goodsDetail(Integer id);
+	public Notice selectANotice(Integer id);
+	public List<Goods> search(String mykey);
     public List getAllGoodsType();
-    public String ResetPassword(String email);
+    public List<Map<String,Object>> getFocusOrder();
+    public List<Map<String,Object>> selectNotice();
+    public  List<Map<String,Object>> getLastedGoods(Goods goods);
+    public  List<Map<String,Object>> getSaleOrder();
+
 }

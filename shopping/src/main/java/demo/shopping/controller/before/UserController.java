@@ -21,64 +21,47 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping("/showregister")
-	public String Showregister(Model model,Buser buser){
-		model.addAttribute("buser",buser);
-		return "before/register";
-	}
-
 	@RequestMapping("/register")
 	public String register(@RequestBody @ModelAttribute @Validated Buser buser, BindingResult bindingResult, Model model, HttpSession session, String code) throws Exception {
+
 		if (bindingResult.hasErrors()){
-			model.addAttribute("codeError", "检查输入");
+			model.addAttribute("codeError", "邮箱或密码格式不符合要求！");
 			return "before/register";
 		}
 		else {
 			if(!code.equalsIgnoreCase(session.getAttribute("code").toString())) {
-				model.addAttribute("codeError", "检查输入");
+				model.addAttribute("codeError", "验证码错误！");
 				return "before/register";
 			}
-
-			int n=userService.register(buser.getBemail(),buser.getBpwd());
-
-
+			int n=userService.register(buser);
 
 			if(n > 0) {
-				return "before/login";
+
+				return "before/login1";
 			}else {
-				model.addAttribute("msg", "注册失败");
+				model.addAttribute("msg", "注册失败！");
 				return "before/register";
 			}
 		}
 	}
-
-	@RequestMapping("/showlogin")
-	public String Showlogin(){
-
-		return "before/login1";
-	}
-	
 	@RequestMapping("/login")
 	public String login(@ModelAttribute Buser buser,Model model, HttpSession session, String code) throws Exception {
-
 		if(!code.equalsIgnoreCase(session.getAttribute("code").toString())) {
 			model.addAttribute("msg", "验证码错误");
-			return "before/login";
+			return "before/login1";
 		}
-
-        Buser buser1=null;
+		    Buser buser1=null;
        		buser1=userService.login(buser);
-
-
 		if(buser1 != null) {
-			session.setAttribute("bruser", buser1);
+			model.addAttribute("bruser",buser1);
+
+			session.setAttribute("bruser",buser1);
+
 			return "forward:/before";
 			}else {
 			model.addAttribute("msg", "用户不存在");
 			return "before/login1";
-
 		}
-
 	}
 	@RequestMapping("/exit")
 	public String exit(HttpSession session) {

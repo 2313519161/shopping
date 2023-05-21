@@ -1,0 +1,58 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org ">
+<head>
+    <title th:text="#{user.goodsDetail.title}"></title>
+    <link th:href="@{/css/before/daohang.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/before/common.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/before/style.css}" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        function goCart() {
+            var value = document.getElementsByName("shoppingnum").value;
+            alert(value)
+            document.putcartform.submit();
+        }
+        function gofocus(gno) {
+
+            window.location.href = "/shopping/cart/focus?id=" + gno;
+        }
+    </script>
+</head>
+<body>
+<div th:replace="before/head"></div>
+<form th:action="@{/cart/putCart}" name="putcartform" method="post">
+    <div class="blank"></div>
+    <div class="block clearfix">
+        <div class="location ared" th:text="#{user.goodsDetail.position}">
+        </div>
+        <div class="blank"></div>
+        <div id="goodsInfo">
+            <div class="imgInfo">
+                <input type="hidden" name="id"
+                       th:value="${goods.id }"/><img
+                    th:src="@{'/logos/'+${goods.gpicture}}"
+                    width="230px" height="230px" />
+            </div>
+        </div>
+        <!--商品表述-->
+        <div class="goods_desc">
+            <div class="bt" th:text="${goods.gname}">
+            </div>
+            <div class="goods_show">
+                <ul>
+                    <li><span th:text="#{user.goodsDetail.price}"></span> <strong class="yj" th:text="#{user.goodsDetail.prices(${goods.goprice})}"></strong></li>
+                    <li><span th:text="#{user.goodsDetail.discountedPrice}"></span><strong class="xj" th:text="#{user.goodsDetail.discountedPrices(${goods.grprice })}"></strong></li>
+                    <li><span th:text="#{user.goodsDetail.type}"></span><span th:text="${goods.typename }"></span></li>
+                    <li style="padding-top: 20px"><span th:text="#{user.goodsDetail.goodsQuantity}"></span><input type="text" name="shoppingnum" class="good_txt" value="1" /> &nbsp;&nbsp;&nbsp;<div style="display: inline-block" th:text="#{user.goodsDetail.inventory(${goods.gstore})}"></div></li>
+                </ul>
+            </div>
+            <p class="bottom10 top5">
+                <img th:src="@{/images/before/goods_ann2.gif}" style="cursor: pointer" onclick="goCart()" />&nbsp;&nbsp;
+                <input type="button" style="cursor: pointer" class="sh_bnt2" th:onclick="'gofocus('+${goods.id}+')'" value="关注" />
+            </p>
+            <p th:text="${msg}"></p>
+        </div>
+        <!--end-->
+    </div>
+</form>
+</body>
+</html>

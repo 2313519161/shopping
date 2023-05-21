@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- demo.shopping.dao.AdminDao对应Dao接口 -->
 <mapper namespace="demo.shopping.dao.AdminDao">
 	<!-- 查询用户信息 -->
-	<select id="login"  resultType="Auser" parameterType="Auser">
+	<select id="getAllAdmin"  resultType="Auser" parameterType="Auser">
 		select * from ausertable
 	</select>
 </mapper>

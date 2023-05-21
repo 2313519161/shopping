@@ -1,0 +1,20 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org ">
+<head>
+    <title th:text="#{user.paydone.title}"></title>
+    <link th:href="@{/css/before/daohang.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/before/common.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/before/style.css}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div th:replace="before/head"></div>
+<div class="blank"></div>
+<div class="block clearfix"><!--当前位置-->
+    <div class="location ared" th:text="#{user.paydone.position}"></div>
+    <div class="blank"></div>
+    <div class="nFlowBox">
+        <h2 style="text-align:center; height:30px; line-height:30px;"  th:text="#{user.paydone.remind}"></h2>
+    </div>
+</div>
+</body>
+</html>

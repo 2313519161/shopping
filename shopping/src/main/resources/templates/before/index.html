@@ -13,6 +13,7 @@
     </script>
 </head>
 <body>
+ <div th:replace="before/head"></div>
 
 <div class="block clearfix" name="center">
     <div class="AreaL">
@@ -24,18 +25,14 @@
                 </div>
                 <div class="top10List clearfix">
 
-
-                        <ul class="clearfix" th:each="sg,status:${salelist }">
-                            <img class="iteration"
-
-                            th:src="@{'/images/before/top_'+${status.index+1}+'.gif'}"
-                            />
+                        <ul class="clearfix" th:each="sg,status:${salelist}">
+                            <img class="iteration" th:src="@{'/images/before/top_'+${status.index+1}+'.gif'}"/>
                             <li class="topimg">
-                                <a href="goodsDetail?id=${sg.id }">
+                                <a th:href="@{/goodsDetail(id=${sg.id})}">
                                     <img class="samllimg" alt="" th:src="@{'/logos/'+ ${sg.gpicture}}" /></a></li>
                             <li class="iteration1">
-                                <a href="goodsDetail?id=${sg.id }" th:text="${sg.gname }"></a><br />
-                               <font class="f1" th:text="#{user.index.page.salesPrice(${sg.grprice })}"></font><br /></li>
+                                <a th:href="@{/goodsDetail(id=${sg.id})}" th:text="${sg.gname }"></a><br />
+                               <font class="f1" th:text="#{user.index.page.salesPrice(${sg.grprice})}"></font><br /></li>
                         </ul>
 
                 </div>
@@ -52,14 +49,13 @@
                 <div class="top10List clearfix">
 
 
-                        <ul class="clearfix" th:each="sg,status:${focuslist }" varStatus="status">
+                        <ul class="clearfix" th:each="sg,status:${focuslist}" varStatus="status">
                             <img class="iteration" th:src="@{'/images/before/top_'+${status.index+1}+'.gif'}"/>
-
                             <li class="topimg">
-                                <a href="goodsDetail?id=${sg.id }">
+                                <a th:href="@{/goodsDetail(id=${sg.id})}">
                                     <img class="samllimg" alt="" th:src="@{'/logos/'+ ${sg.gpicture}}" /></a></li>
                             <li class="iteration1">
-                                <a href="goodsDetail?id=${sg.id }" th:text="${sg.gname }"></a><br />
+                                <a th:href="@{/goodsDetail(id=${sg.id})}" th:text="${sg.gname }"></a><br />
                                 <font class="f1" th:text="#{user.index.page.salesPrice(${sg.grprice })}"></font><br /></li>
                         </ul>
 
@@ -84,12 +80,9 @@
                         </div>
                         <div class="post_list ared">
                             <ul>
-
                                     <li th:each="nt:${noticelist}">
-                                        <a th:href="@{/selectANotice(id=${nt.id)}">
-                                        [[${nt.ntitle}]]</a>
+                                        <a th:href="@{/selectANotice(id=${nt.id})}" th:text="${nt.ntitle}"></a>
                                     </li>
-
                             </ul>
                         </div>
                     </div>
@@ -108,20 +101,18 @@
                     </div>
                     <div class="itemgood_nr clearfix">
                         <ul>
-
                                 <li th:each="sg:${lastedlist }">
                                     <div>
                                         <p class="pic">
-                                            <a href="goodsDetail?id=${sg.id }">
+                                            <a th:href="@{/goodsDetail(id=${sg.id})}">
                                                 <img th:src="@{'/logos/'+ ${sg.gpicture}}" /></a>
                                         </p>
                                         <p class="wz">
-                                            <strong><a href="goodsDetail?id=${sg.id }" th:text="${sg.gname }"></a></strong>
+                                            <strong><a th:href="@{/goodsDetail(id=${sg.id})}" th:text="${sg.gname }"></a></strong>
                                             <em ><span th:text="#{user.index.page.nowSalesPrice(${sg.grprice})}"></span></em>
                                         </p>
                                     </div>
                                 </li>
-
                         </ul>
                     </div>
                 </div>
