@@ -22,14 +22,19 @@ public class UserCenterController extends BaseBeforeController{
 	private UserCenterService userCenterService;
 	@RequestMapping("/userCenter")
 	public String userCenter(HttpSession session, Model model) {
-		List<Object> list=new ArrayList<>();
-		Integer uid= MyUtil.getUserId(session);
-		list=userCenterService.userCenter(uid);
-		model.addAttribute("bruser",session.getAttribute("bruser"));
-		model.addAttribute("myOrder", list.get(0));
-		model.addAttribute("myFocus", list.get(1));
-		logger.info("前往用户中心，用户id为"+uid);
-		return "before/userCenter";
+		if (session.getAttribute("bruser")!=null){
+			List<Object> list=new ArrayList<>();
+			Integer uid= MyUtil.getUserId(session);
+			list=userCenterService.userCenter(uid);
+			model.addAttribute("bruser",session.getAttribute("bruser"));
+			model.addAttribute("myOrder", list.get(0));
+			model.addAttribute("myFocus", list.get(1));
+			logger.info("前往用户中心，用户id为"+uid);
+			return "before/userCenter";
+		}
+		logger.info("用户未登录，需先登录");
+		return "before/login1";
+
 	}
 	@RequestMapping("/orderDetail")
 	public String orderDetail(HttpSession session,Model model, Integer ordersn) {

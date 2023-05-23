@@ -26,8 +26,9 @@ public class CartServiceImpl implements CartService{
 		map.put("uid", uid);
 		map.put("gid", id);
 		List<Map<String, Object>> list = cartDao.isFocus(map);
-		cartDao.focus(map);
-		return list.size();
+	    if (list.size()==0) cartDao.focus(map);
+
+	    return list.size();
 		}
 	@Override
 	public void putCart(Integer shoppingnum, Integer id, Integer uid) {

@@ -42,7 +42,8 @@
             <td>[[${n.id}]]</td>
             <td>[[${n.bemail}]]</td>
             <td>[[${n.amount}]]</td>
-            <td th:if="${n.status==0}?#{admin.orderManager.page.yesPay}:#{admin.orderManager.page.noPay}"></td>
+            <td th:if="${n.status== 0 }" th:text="#{admin.orderManager.page.yesPay}"></td>
+            <td th:if="${n.status== 1 }" th:text="#{admin.orderManager.page.noPay}"></td>
             <td>[[${n.orderdate}]]</td>
             <td>
                     <a th:if="${n.status == 0}" th:href="'javaScript:checkDel('+${n.id}+')'" th:text="#{admin.orderManager.page.delete}"></a>

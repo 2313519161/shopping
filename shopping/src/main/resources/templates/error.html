@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>定制错误页面</title>
+    <style>
+        .button{
+            background-color: #1867af;
+            border: none;
+            color: #f0f1ff;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .big{
+            position: absolute;
+            left: 420pt;
+            top: 20pt;
+        }
+        .mes{
+            position: absolute;
+            top: 350pt;
+        }
+    </style>
+</head>
+<body>
+<form th:action="@{/admin}" method="get">
+    <div class="big">
+        <h2>哎呀,出错了！！这是其他错误！</h2>
+        <img th:src="@{/images/admin/error.png}" height="200pt" width="200pt">
+        <div>
+            <span>状态码：</span>
+            <span th:text="${status}"></span>
+        </div>
+        <div>
+            <span>错误原因：</span>
+            <span th:text="${message}"></span>
+        </div>
+        <div>
+            <span>异常类：</span>
+            <span th:text="${exception}"></span>
+        </div>
+        <div>
+            <span>请求路径：</span>
+            <span th:text="${path}"></span>
+        </div>
+        <input th:value="返回首页" type="submit" class="button">
+
+    </div>
+
+    <div class="mes">
+        <hr width="100%" color="black" th:border="3pt">
+        <h3>错误信息:</h3>
+        <span th:text="${'exception:' + trace}"></span>
+    </div>
+</form>
+</body>
+</html>

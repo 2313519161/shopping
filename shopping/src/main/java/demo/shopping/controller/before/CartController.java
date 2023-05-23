@@ -25,14 +25,27 @@ public class CartController extends BaseBeforeController{
 
 	@RequestMapping("/focus")
 	public String focus(Model model,Integer id, HttpSession session) {
-		Integer uid= MyUtil.getUserId(session);
-		int n= cartService.focus(id,uid );
-		if (n>0){
-			logger.info("用户:"+uid+"已经关注商品id为"+id);
-			model.addAttribute("msg", "已经关注过了");
+
+		if (session.getAttribute("bruser")!=null){
+
+			Integer uid= MyUtil.getUserId(session);
+			int n= cartService.focus(id,uid );
+			if (n>0){
+				logger.info("用户:"+uid+"已经关注商品id为"+id);
+				model.addAttribute("msg", "已经关注过了");
+			}
+			return "forward:/goodsDetail?id="+id;
+
 		}
-		return "forward:/goodsDetail?id=" + id;
+		logger.info("用户未登录，需先登录");
+		return "before/login1";
+
+
 	}
+
+
+
+
 
 	@RequestMapping("/putCart")
 	public String putCart(Model model,Integer shoppingnum, Integer id, HttpSession session) {
